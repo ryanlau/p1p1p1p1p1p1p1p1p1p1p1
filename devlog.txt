@@ -1,0 +1,13 @@
+Fortnite
+Ryan Lau
+Elizabeth Paperno
+Hui Wang
+Craig Chen
+
+elizabethP -- 2022-12-06 21:49
+Overall our feedback was primarily positive in terms of the idea and our plans to implement it.
+One group pointed out that we differentiated between user_ids and usernames, which was not necessary.
+Another group was confused regarding the additional pages that are linked to the dashboard/homepage.
+
+Update design doc to clarify that widgets on dashboard link to pages with in depth information, add post-MVP features, and get rid of user_ids.
+Change the APIs for quotes and for stock market information in design doc to ones that are easier to use.
