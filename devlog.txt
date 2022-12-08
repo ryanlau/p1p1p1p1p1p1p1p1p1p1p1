@@ -43,5 +43,10 @@ design doc fdbk
 
 elizabethP -- 2022-12-08 09:22
 --------------------------------------------------------------
-    - add FavQs API card to notes-and-code
+- add FavQs API card to notes-and-code
+
+huiW -- 2022-12-08 09:26
+--------------------------------------------------------------
+- added HTML files and started using bootstrap to create inputs
+
 ==============================================================
