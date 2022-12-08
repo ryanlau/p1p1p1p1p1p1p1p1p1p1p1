@@ -14,16 +14,18 @@ headers = {
 }
 
 
-def get_prices(stocks):
-    d = {}
+def get_prices(symbols: list[str]):
+    prices = {}
 
-    response = requests.get(f"https://data.alpaca.markets/v2/stocks/quotes/latest?symbols={','.join(symbols)}", headers=headers)
-    response = response.json()
-
+    response = requests.get(f"https://data.alpaca.markets/v2/stocks/quotes/latest?symbols={','.join(symbols)}", headers=headers).json()
 
     quotes = response.get("quotes")
 
-    for stock, data in quotes.values():
-        d[stock] = data["ap"]
+    for stock, data in quotes.items():
+        prices[stock] = data["ap"]
 
-    return d
+    return prices
+
+
+if __name__ == "__main__":
+    print(get_prices(["AAPL", "AMZN"]))
