@@ -45,13 +45,16 @@ elizabethP -- 2022-12-08 09:22
 --------------------------------------------------------------
 - add FavQs API card to notes-and-code
 
+ryanL -- 2022-12-08 09:25
+--------------------------------------------------------------
+- write method to get stock prices from Alpaca API
+- setup api and keys directories
+
 huiW -- 2022-12-08 09:26
 --------------------------------------------------------------
 - added HTML files and started using bootstrap to create inputs
 
-
 craigC -- 2022-12-08 09:27
 --------------------------------------------------------------
 - added openWeather API card
-
 ==============================================================
