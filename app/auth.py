@@ -38,10 +38,20 @@ def getUserPassword(user):
     dbFuncs.disconnect(db)
     return passw
 
+def isUsernameAvail(user):
+    exsistingUsers = getUserList()
+    if user in exsistingUsers: 
+        return True
+    return False
 
-createUserTable()
-addNewUser("epap", "hi")
-print(getUserList())
-print(getUserPassword("epap"))
+def testing():
+    createUserTable()
+    addNewUser("epap", "hi")
+    print(getUserList())
+    print(getUserPassword("epap"))
+    print(isUsernameAvail("epap"))
+    print(isUsernameAvail("epap1"))
+
+#testing()
 
 
