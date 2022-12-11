@@ -1,31 +1,47 @@
+{% import 'macros.html' as macros %}
 {% extends "layout.html" %}
 
-
 {% block title %} dashboard {%endblock%}
-
 {% block content %}
 
 
-<div class="m-3 m-x-lg-5">
-    <div class="row ">
-        <div class="col-12 col-lg-4">
-            <div class="card" id="news">
-                <div class="card-header">news</div>
-                <div class="card-body">fasdfasf</div>
+<div class="m-3 m-x-lg-5 ">
+    <header class="mt-3 mx-2">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="text-start"> <h4>7:42 AM</h4></div>
+                <!-- line below is not truly centered!! -->
+                <div class="text-center flex-grow-1"><h2>good morning, bob</h2></div>
+                <div class="text-end "><h4> <a href="/logout" class="text-reset text-decoration-none">logout</a></h4></div>
             </div>
+
+            <div class="row">
+                <div class="col">
+                    <p class="text-center">
+                        "There is only one thing that makes a dream impossible to achieve: the fear of failure."
+                    </p>
+                </div>
+            </div>
+    </header>
+
+
+    <div class="row">
+        <div class="col-12 col-lg-4">
+            {% call macros.card('news') %}
+                poopity
+            {% endcall %}
         </div>
         <div class="col-12 col-lg-4">
-            <div class="card" id="weather">
-                <div class="card-header">weather</div>
-            </div>
-            <div class="card" id="stocks">
-                <div class="card-header">stocks</div>
-            </div>
+            {% call macros.card('weather') %}
+                poopity
+            {% endcall %}
+            {% call macros.card('stocks') %}
+                poopity
+            {% endcall %}
         </div>
         <div class="col-12 col-lg-4">
-            <div class="card" id="todos">
-                <div class="card-header">todos</div>
-            </div>
+            {% call macros.card('todos') %}
+                poopity
+            {% endcall %}
         </div>
     </div>
 </div>

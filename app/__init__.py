@@ -8,40 +8,37 @@
 from flask import Flask, render_template, request, session
 app = Flask(__name__) #create instance of class Flask
 
-@app.route("/")       #assign fxn to route
+@app.route("/")
 def login():
-
     return render_template('login.html')
 
+@app.route("/d")
+def d():
+    return render_template('dashboard.html')
 
-@app.route("/register")       #assign fxn to route
+@app.route("/register")
 def register():
-
     return render_template('register.html')
     
     
-@app.route("/stocks")       #assign fxn to route
+@app.route("/stocks")
 def stocks():
-
     return render_template('stocks.html')
 
 
-@app.route("/weather")       #assign fxn to route
+@app.route("/weather")
 def weather():
-
     return render_template('weather.html')
 
 
-@app.route("/news")       #assign fxn to route
+@app.route("/news")
 def news():
-
     return render_template('news.html')
 
 
-@app.route("/todo")       #assign fxn to route
+@app.route("/todos")
 def todo():
-
-    return render_template('todo.html')
+    return render_template('todos.html')
 
 
 if __name__ == "__main__":  # true if this file NOT imported
