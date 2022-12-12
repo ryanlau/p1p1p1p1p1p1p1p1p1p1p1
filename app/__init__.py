@@ -8,16 +8,41 @@
 from flask import Flask, render_template, request, session
 app = Flask(__name__) #create instance of class Flask
 
-@app.route("/")
+
+@app.route('/')
+def index():
+    if 'username' in session:
+        return f'Logged in as {session["username"]}'
+    return 'You are not logged in'
+
+@app.route("/login", methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        session['password'] = request.form['password']
+
+        return redirect(url_for('index'))
     return render_template('login.html')
 
 @app.route("/d")
 def d():
     return render_template('dashboard.html')
 
-@app.route("/register")
+@app.route("/register",methods=['POST'])
 def register():
+    if request.method == 'POST':    
+        key = get_random_string()
+        username = str(request.form.get('username'))
+        password = str(request.form.get('password'))
+        
+        command = f"insert into users values('{username}','{password}');"
+        db.execute(command)
+        
+    file.commit()
+    
+    session["username"]= username
+    session["password"]=password
+
     return render_template('register.html')
     
     
