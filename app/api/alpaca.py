@@ -17,6 +17,7 @@ headers = {
 def get_prices(symbols: list[str]):
     prices = {}
 
+    # better: https://alpaca.markets/docs/api-references/market-data-api/stock-pricing-data/historical/#snapshot
     response = requests.get(f"https://data.alpaca.markets/v2/stocks/quotes/latest?symbols={','.join(symbols)}", headers=headers).json()
 
     quotes = response.get("quotes")
@@ -29,3 +30,4 @@ def get_prices(symbols: list[str]):
 
 if __name__ == "__main__":
     print(get_prices(["AAPL", "AMZN"]))
+
