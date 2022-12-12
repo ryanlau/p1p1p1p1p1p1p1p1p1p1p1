@@ -6,7 +6,7 @@
 
 
 from flask import Flask, render_template, request, session
-import api.alpaca as alpaca
+# import api.alpaca as alpaca
 app = Flask(__name__) #create instance of class Flask
 
 
