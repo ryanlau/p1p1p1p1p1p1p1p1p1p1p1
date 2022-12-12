@@ -31,6 +31,7 @@ def getUserList():
     return formatted_users
 
 def getUserPassword(user):
+    # gets the password given username
     conn =  dbFuncs.establishConnection()
     c = conn[0]
     db = conn[1]
@@ -39,6 +40,7 @@ def getUserPassword(user):
     return passw
 
 def isUsernameAvail(user):
+    #checks if username is available for use
     exsistingUsers = getUserList()
     if user in exsistingUsers: 
         return True
