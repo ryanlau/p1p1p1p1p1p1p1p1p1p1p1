@@ -6,6 +6,7 @@
 
 
 from flask import Flask, render_template, request, session
+import api.alpaca as alpaca
 app = Flask(__name__) #create instance of class Flask
 
 
@@ -26,7 +27,12 @@ def login():
 
 @app.route("/d")
 def d():
-    return render_template('dashboard.html')
+    stocks = [("AMZN", "Amazon.com, Inc."), ("AAPL", "Apple Inc. Common Stock")]
+    snapshots = alpaca.get_snapshots([stock[0] for stock in stocks])
+    for stock in stocks:
+        snapshots[stock[0]]["name"] = stock[1]
+
+    return render_template('dashboard.html', stock_data=snapshots)
 
 @app.route("/register",methods=['POST'])
 def register():

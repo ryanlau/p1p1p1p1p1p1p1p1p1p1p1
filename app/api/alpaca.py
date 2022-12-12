@@ -14,20 +14,30 @@ headers = {
 }
 
 
-def get_prices(symbols: list[str]):
+def get_snapshots(symbols: list[str]):
     prices = {}
 
-    # better: https://alpaca.markets/docs/api-references/market-data-api/stock-pricing-data/historical/#snapshot
-    response = requests.get(f"https://data.alpaca.markets/v2/stocks/quotes/latest?symbols={','.join(symbols)}", headers=headers).json()
+    response = requests.get(f"https://data.alpaca.markets/v2/stocks/snapshots?symbols={','.join(symbols)}", headers=headers).json()
 
-    quotes = response.get("quotes")
-
-    for stock, data in quotes.items():
-        prices[stock] = data["ap"]
+    for stock, data in response.items():
+        prices[stock] = {}
+        prices[stock]["price"] = round(data["latestTrade"]["p"], 2)
+        prices[stock]["change"] = round(((data["latestTrade"]["p"] - data["prevDailyBar"]["c"]) / data["prevDailyBar"]["c"]) * 100, 2)
 
     return prices
 
 
+def get_company_name(ticker):
+    response = requests.get(f"https://paper-api.alpaca.markets/v2/assets/{ticker}", headers=headers)
+
+    if response.status_code == 404:
+        return None
+
+    return response.json()["name"]
+
+
 if __name__ == "__main__":
-    print(get_prices(["AAPL", "AMZN"]))
+    print(get_snapshots(["AAPL", "AMZN"]))
+    print(get_company_name("AAPL"))
+    print(get_company_name("FORtnITE"))
 
