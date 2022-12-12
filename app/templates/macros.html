@@ -11,3 +11,15 @@
       <div class="card-body">{{caller()}}</div>
   </div>
 {%- endmacro %}
+
+
+
+{% macro stock_card(symbol, name, price, change) -%}
+    <div class="col-12">
+      <div class="card">
+        <div class="row">
+          <div class="col">{{symbol}}</div>
+        </div>
+      </div>
+    </div>
+{%- endmacro %}

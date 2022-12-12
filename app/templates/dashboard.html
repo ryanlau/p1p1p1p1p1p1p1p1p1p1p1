@@ -35,7 +35,11 @@
                 poopity
             {% endcall %}
             {% call macros.card('stocks') %}
-                poopity
+                <div class="row py-2 gy-4">
+                    {% for stock in [ { "symbol": "AAPL", "name": "Apple Inc. Common Stock", "price": 142.16, "change": -0.34 }, { "symbol": "AMZN", "name": "Amazon.com, Inc.", "price": 89.09, "change": -1.39 } ] %}
+                        {{ macros.stock_card(stock.symbol, stock.name, stock.price, stock.change) }}
+                    {% endfor %}
+                </div>
             {% endcall %}
         </div>
         <div class="col-12 col-lg-4">
