@@ -6,33 +6,54 @@
 
 <div class="d-flex align-items-center">
     <div class="card text-center w-50 p-2 mx-auto">
+
         <nav>
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Login</button>
-              <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Register</button>
+              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-login" aria-selected="true">Login</button>
+              <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register" aria-selected="false">Register</button>
             </div>
         </nav>
-          <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">...</div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
-          </div>
-          
 
-        <form class="form-signin">
-            <div class="form-group row p-3">
-                <label for="username" class="col-sm-3 col-lg-2 col-form-label">Username</label>
-                <div class="col-sm-9 col-lg-10">
-                    <input type="text" class="form-control form-control-lg" id="username" placeholder="Username">
-                </div>
+        <div class="tab-content" id="nav-tabContent">
+
+            <div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-login" tabindex="0">
+                <form class="form-signin" method="POST" action="/login">
+                    <div class="form-group row p-3">
+                        <label for="username" class="col-sm-3 col-lg-2 col-form-label">Username</label>
+                        <div class="col-sm-9 col-lg-10">
+                            <input type="text" class="form-control form-control-lg" id="username" placeholder="Username" name="username">
+                        </div>
+                    </div>
+                    <div class="form-group row p-3">
+                        <label for="password" class="col-sm-3 col-lg-2 col-form-label">Password</label>
+                        <div class="col-sm-9 col-lg-10">
+                            <input type="password" class="form-control form-control-lg" id="password" placeholder="Password" name="password">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Login</button>
+                </form>
             </div>
-            <div class="form-group row p-3">
-                <label for="password" class="col-sm-3 col-lg-2 col-form-label">Password</label>
-                <div class="col-sm-9 col-lg-10">
-                    <input type="password" class="form-control form-control-lg" id="password" placeholder="Password">
-                </div>
+            
+            <div class="tab-pane fade" id="nav-register" role="tabpanel" aria-labelledby="nav-register" tabindex="0">
+                <form class="form-signin" method="POST" action="/register">
+                    <div class="form-group row p-3">
+                        <label for="username" class="col-sm-3 col-lg-2 col-form-label">Username</label>
+                        <div class="col-sm-9 col-lg-10">
+                            <input type="text" class="form-control form-control-lg" id="username" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="form-group row p-3">
+                        <label for="password" class="col-sm-3 col-lg-2 col-form-label">Password</label>
+                        <div class="col-sm-9 col-lg-10">
+                            <input type="password" class="form-control form-control-lg" id="password" placeholder="Password">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Register</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Login</button>
-        </form>
+
+        </div>
+          
     </div>
 </div>
 
