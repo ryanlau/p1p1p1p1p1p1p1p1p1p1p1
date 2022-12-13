@@ -46,14 +46,18 @@ def isUsernameAvail(user):
         return True
     return False
 
-def testing():
+def check_creds(username, password):
+    user = dbFuncs.query_db("SELECT * FROM user_info WHERE user_id = ? AND password = ?", (username, password))
+    return user is not None
+
+
+    
+# LINES BELOW ONLY GET RUN IF "EXPLICITY RAN" with `python auth.py`
+if __name__ == "__main__":
     createUserTable()
     addNewUser("epap", "hi")
-    print(getUserList())
-    print(getUserPassword("epap"))
-    print(isUsernameAvail("epap"))
-    print(isUsernameAvail("epap1"))
+    print(check_creds("epap", "hi"))
+    print(check_creds("epap", "hi2"))
 
-#testing()
 
 
