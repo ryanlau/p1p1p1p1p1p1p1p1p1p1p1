@@ -1,5 +1,5 @@
 import sqlite3   #enable control of an sqlite database
-import dbFuncs
+from . import dbFuncs
 
 def createUserTable(): 
     # creates user_info and story_info 

@@ -6,8 +6,9 @@
 
 
 from flask import Flask, render_template, request, session, flash, redirect
+import secrets
 
-import auth, todo, watchlists
+from db import auth, todo, watchlists
 
 import api.alpaca as alpaca
 
@@ -16,8 +17,8 @@ app = Flask(__name__) #create instance of class Flask
 
 @app.route('/')
 def index():
-    if 'username' not in session:
-        return render_template('login.html')
+    # if 'username' not in session:
+    #     return render_template('login.html')
     
     # TODO: FETCH FOLLOWING DATA FROM DB
     stocks = [("AMZN", "Amazon.com, Inc."), ("AAPL", "Apple Inc. Common Stock")]
