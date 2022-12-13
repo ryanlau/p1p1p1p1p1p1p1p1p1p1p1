@@ -7,6 +7,7 @@
 
 from flask import Flask, render_template, request, session, flash, redirect
 import secrets
+import json
 
 from db import auth, todo, watchlists
 
@@ -22,11 +23,14 @@ def index():
     
     # TODO: FETCH FOLLOWING DATA FROM DB
     stocks = [("AMZN", "Amazon.com, Inc."), ("AAPL", "Apple Inc. Common Stock")]
-    snapshots = alpaca.get_snapshots([stock[0] for stock in stocks])
-    for stock in stocks:
-        snapshots[stock[0]]["name"] = stock[1]
+    stock_data = alpaca.get_snapshots([stock[0] for stock in stocks])
+    bars = alpaca.get_daily_bars([stock[0] for stock in stocks])
 
-    return render_template('dashboard.html', stock_data=snapshots)
+    for stock in stocks:
+        stock_data[stock[0]]["name"] = stock[1]
+        stock_data[stock[0]]["bars"] = bars[stock[0]]
+
+    return render_template('dashboard.html', stock_data=stock_data)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -85,5 +89,6 @@ def todo():
 
 if __name__ == "__main__":
     app.debug = True
-    app.secret_key = secrets.token_hex()
+    # app.secret_key = secrets.token_hex()
+    app.secret_key = "a"
     app.run()

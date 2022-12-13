@@ -1,4 +1,5 @@
 import requests
+from datetime import date
 
 
 with open("app/keys/key_alpaca_id.txt") as f:
@@ -36,8 +37,28 @@ def get_company_name(ticker):
     return response.json()["name"]
 
 
+def get_daily_bars(tickers: list[str]):
+    response = requests.get(f"https://data.alpaca.markets/v2/stocks/bars?symbols={','.join(tickers)}&timeframe=2Min&start={date.today()}T09:30:00-05:00", headers=headers).json()
+    response = response["bars"]
+
+    bars_d = {}
+
+    for stock, bars in response.items():
+        cleaned_bars = []
+        for bar in bars:
+            print(f"{bar['t']}: {bar['vw']}")
+            cleaned_bars.append({"x": bar["t"], "y": bar["vw"]})
+
+        bars_d[stock] = cleaned_bars
+
+    return bars_d
+
+
+
+
 if __name__ == "__main__":
     print(get_snapshots(["AAPL", "AMZN"]))
     print(get_company_name("AAPL"))
     print(get_company_name("FORtnITE"))
+    print(get_daily_bars(["AAPL", "AMZN"]))
 
