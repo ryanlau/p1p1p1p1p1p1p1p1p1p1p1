@@ -18,19 +18,24 @@ app = Flask(__name__) #create instance of class Flask
 
 @app.route('/')
 def index():
-    if 'username' not in session:
+    username = session.get("username")
+
+    if username is None:
         return render_template('login.html')
-    
+
     # TODO: FETCH FOLLOWING DATA FROM DB
-    stocks = [("AMZN", "Amazon.com, Inc."), ("AAPL", "Apple Inc. Common Stock")]
-    stock_data = alpaca.get_snapshots([stock[0] for stock in stocks])
-    bars = alpaca.get_daily_bars([stock[0] for stock in stocks])
+    stocks = watchlists.get_watchlist(username)
 
-    for stock in stocks:
-        stock_data[stock[0]]["name"] = stock[1]
-        stock_data[stock[0]]["bars"] = bars[stock[0]]
+    stock_data = {}
+    if len(stocks) > 0:
+        stock_data = alpaca.get_snapshots([stock[0] for stock in stocks])
+        bars = alpaca.get_daily_bars([stock[0] for stock in stocks])
 
-    return render_template('dashboard.html', stock_data=stock_data)
+        for stock in stocks:
+            stock_data[stock[0]]["name"] = stock[1]
+            stock_data[stock[0]]["bars"] = bars[stock[0]]
+
+    return render_template('dashboard.html', stock_data=stock_data, username=session['username'])
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -83,6 +88,37 @@ def news():
 def todo():
     return render_template('todos.html')
 
+
+@app.route("/api/stocks/add", methods=["POST"])
+def add_stock():
+    username = session.get("username")
+
+    if username is None:
+        return redirect("/")
+    
+    
+    ticker = request.form["ticker"]
+    company_name = alpaca.get_company_name(ticker)
+
+    if company_name:
+        watchlists.add_ticker(username, ticker, company_name)
+
+    return redirect("/")
+
+@app.route("/api/stocks/remove")
+def remove_stock():
+    username = session.get("username")
+
+    if username is None:
+        return redirect("/")
+    
+    
+    ticker = request.args.get("ticker")
+
+    if ticker:
+        watchlists.remove_ticker(username, ticker)
+
+    return redirect("/")
 
 # @app.route("/api")
 

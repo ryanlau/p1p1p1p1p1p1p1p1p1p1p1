@@ -28,14 +28,13 @@ def delete_watchlist_table():
 
 if __name__ == "__main__":
     create_watchlist_table()
-    add_ticker("epaperno", "AAPL", "Apple")
-    add_ticker("r", "GOOG", "google")
-    print(get_watchlist("epaperno"))
+    # add_ticker("epap", "AAPL", "Apple")
+    # add_ticker("epap", "GOOG", "google")
+    print(get_watchlist("epap"))
     print(get_watchlist("r"))
-    remove_ticker("epaperno", "AAPL")
-    print(get_watchlist("epaperno"))
+    remove_ticker("epap", "AAPL")
+    print(get_watchlist("epap"))
     print(get_watchlist("r"))
-    delete_watchlist_table()
 
 
 

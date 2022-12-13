@@ -1,9 +1,9 @@
 function createCharts(data){
     Object.keys(data).forEach(ticker => {
-        createChart(ticker, data[ticker]["bars"])
+        createChart(ticker, data[ticker]["bars"], data[ticker]["change"])
     });
 }
-function createChart(ticker, bars) {
+function createChart(ticker, bars, change) {
     const ctx = document.getElementById(ticker + '-chart')
     console.log(ctx);
     
@@ -13,7 +13,9 @@ function createChart(ticker, bars) {
         datasets: [{
             fill: 'start',
             data: bars,
-            tension: 0.3
+            tension: 0.3,
+            borderColor: change > 0 ? "#00ff00" : "#ff0000" ,
+            backgroundColor: change > 0 ? "#9eff9e" : "#ff9e9e" ,
         }],
     },
     options: {
