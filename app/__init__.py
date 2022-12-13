@@ -8,7 +8,7 @@
 from flask import Flask, render_template, request, session, flash, redirect
 import secrets
 
-from db import auth, todo, watchlists
+from db import auth
 
 import api.alpaca as alpaca
 
@@ -87,5 +87,4 @@ def todo():
 if __name__ == "__main__":
     app.debug = True
     app.secret_key = secrets.token_hex()
-
     app.run()

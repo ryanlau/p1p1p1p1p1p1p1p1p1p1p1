@@ -1,63 +1,34 @@
-import sqlite3   #enable control of an sqlite database
-from . import dbFuncs
+try:
+    from .db import query_db
+except:
+    from db import query_db
 
-def createUserTable(): 
+def create_user_info_table(): 
     # creates user_info and story_info 
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    c.execute(f"DROP TABLE IF EXISTS user_info")
-    c.execute(f"CREATE TABLE user_info (user_id TEXT PRIMARY KEY, password TEXT)")
-    dbFuncs.disconnect(db)
+    query_db("DROP TABLE IF EXISTS user_info")
+    query_db("CREATE TABLE user_info (user_id TEXT PRIMARY KEY, password TEXT)")
 
-def addNewUser(username, password): 
-    # adds new user and password to user_info table
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    c.execute("INSERT INTO user_info VALUES (?, ?);", (username, password))
-    dbFuncs.disconnect(db)
+def add_new_user(username, password): 
+    query_db("INSERT INTO user_info VALUES (?, ?);", (username, password))
 
-def getUserList():
-    # returns list of existing users
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    vals = c.execute("SELECT user_id FROM user_info").fetchall()
-    dbFuncs.disconnect(db)
-    formatted_users = []
-    for i in range(len(vals)): 
-        formatted_users.append(vals[i][0])
-    return formatted_users
-
-def getUserPassword(user):
-    # gets the password given username
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    passw = c.execute("SELECT password FROM user_info WHERE user_id = ?", (user,)).fetchall()[0][0]
-    dbFuncs.disconnect(db)
-    return passw
-
-def isUsernameAvail(user):
-    #checks if username is available for use
-    exsistingUsers = getUserList()
-    if user in exsistingUsers: 
-        return True
-    return False
+def check_username_availability(username):
+    user = query_db("SELECT * FROM user_info WHERE user_id = ?", (username,))
+    return user is None
 
 def check_creds(username, password):
-    user = dbFuncs.query_db("SELECT * FROM user_info WHERE user_id = ? AND password = ?", (username, password))
+    user = query_db("SELECT * FROM user_info WHERE user_id = ? AND password = ?", (username, password))
     return user is not None
 
 
     
 # LINES BELOW ONLY GET RUN IF "EXPLICITY RAN" with `python auth.py`
 if __name__ == "__main__":
-    createUserTable()
-    addNewUser("epap", "hi")
+    create_user_info_table()
+    print(check_username_availability("epap"))
+    add_new_user("epap", "hi")
     print(check_creds("epap", "hi"))
     print(check_creds("epap", "hi2"))
+    print(check_username_availability("epap"))
 
 
 

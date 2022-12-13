@@ -1,35 +1,30 @@
-import sqlite3   #enable control of an sqlite database
-from . import dbFuncs
+try:
+    from .db import query_db
+except:
+    from db import query_db
 
-def createWatchlistTable(): 
-    # creates user_info and story_info 
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    c.execute("DROP TABLE IF EXISTS watchlist")
-    c.execute("CREATE TABLE watchlist (username TEXT, ticker TEXT)")
-    dbFuncs.disconnect(db)
 
-def addTicker(username, tick):
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    c.execute("INSERT INTO  watchlists VALUES (?,?)",(username,tick))
-    dbFuncs.disconnect(db)
+def create_watchlist_table(): 
+    query_db("DROP TABLE IF EXISTS watchlist")
+    query_db("CREATE TABLE watchlist (username TEXT, ticker TEXT)")
 
-def getListTickers(username): 
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    vals = c.execute("SELECT ticker FROM watchlist").fetchall()
-    dbFuncs.disconnect(db)
+
+def add_ticker(username, tick):
+    query_db("INSERT INTO  watchlists VALUES (?,?)",(username,tick))
+
+
+def get_watchlist(username): 
+    vals = query_db("SELECT ticker FROM watchlist", all=True)
+
     formatted_tickers = []
     for i in range(len(vals)): 
         formatted_tickers.append(vals[i][0])
     return formatted_tickers
 
-def removeTicker(username, tick):
+
+def remove_ticker(username, tick):
     return True
 
-def deleteWatchlistTable(): 
+
+def delete_watchlist_table(): 
     return True

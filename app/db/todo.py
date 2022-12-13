@@ -1,67 +1,47 @@
-import sqlite3   #enable control of an sqlite database
-from . import dbFuncs
+try:
+    from .db import query_db
+except:
+    from db import query_db
 
-def createTodoTable(): 
-    # creates user_info and story_info 
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    c.execute(f"DROP TABLE IF EXISTS todos")
-    c.execute(f"CREATE TABLE todos (todo_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, item TEXT, completion_status INTEGER)")
-    dbFuncs.disconnect(db)
+def create_todo_table(): 
+    query_db(f"DROP TABLE IF EXISTS todos")
+    query_db(f"CREATE TABLE todos (todo_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, item TEXT, completion_status INTEGER)")
 
-def addItem(username, item, completion_status): 
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    c.execute("INSERT INTO todos (username, item, completion_status) VALUES (?, ?, ?);", (username, item, completion_status))
-    dbFuncs.disconnect(db)
 
-def getListItems(username):
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    vals = c.execute("SELECT item FROM todos WHERE username = ?",(username,)).fetchall()
-    dbFuncs.disconnect(db)
+def add_todo(username, item, completion_status): 
+    query_db("INSERT INTO todos (username, item, completion_status) VALUES (?, ?, ?);", (username, item, completion_status))
+
+
+def get_all_todos(username):
+    vals = query_db("SELECT item FROM todos WHERE username = ?",(username,), all=True)
     formatted_items = []
     for i in range(len(vals)): 
         formatted_items.append(vals[i][0])
     return formatted_items
 
-def updateCompletionStatus(todo_id, bool_val): 
+
+def update_completion_status(todo_id, bool_val): 
     # marks item as bool_val 
     # bool_val should be passed in as 1 for true and 0 for false
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    c.execute("UPDATE todos SET completion_status = ? WHERE todo_id = ?;",(bool_val, todo_id))
-    dbFuncs.disconnect(db)
+    query_db("UPDATE todos SET completion_status = ? WHERE todo_id = ?;",(bool_val, todo_id))
 
-def getCompletionStatus(todo_id):
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    status = c.execute("SELECT completion_status FROM todos WHERE todo_id= ?", (todo_id,)).fetchall()[0][0]
-    dbFuncs.disconnect(db)
+
+def get_completion_status(todo_id):
+    status = query_db("SELECT completion_status FROM todos WHERE todo_id= ?", (todo_id,))[0]
     return status
 
-def deleteItem(todo_id): 
-    #deletes item from table
-    conn =  dbFuncs.establishConnection()
-    c = conn[0]
-    db = conn[1]
-    c.execute("DELETE FROM todos WHERE todo_id = ?;",(todo_id,))
-    dbFuncs.disconnect(db)
 
-def testing():
-    createTodoTable()
-    addItem("epaperno", "hi", 0)
-    addItem("epaperno", "bye", 0)
-    print(getListItems("epaperno"))
-    updateCompletionStatus(1,1)
-    print(getCompletionStatus(1))
-    print(getCompletionStatus(2))
-    deleteItem(1)
-    print(getListItems("epaperno"))
+def delete_todo(todo_id): 
+    query_db("DELETE FROM todos WHERE todo_id = ?;",(todo_id,))
 
-testing()
+
+if __name__ == "__main__":
+    create_todo_table()
+    add_todo("epaperno", "hi", 0)
+    add_todo("epaperno", "bye", 0)
+    print(get_all_todos("epaperno"))
+    update_completion_status(1,1)
+    print(get_completion_status(1))
+    print(get_completion_status(2))
+    delete_todo(1)
+    print(get_all_todos("epaperno"))
