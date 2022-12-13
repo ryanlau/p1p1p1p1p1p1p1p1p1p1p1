@@ -8,9 +8,9 @@
 from flask import Flask, render_template, request, session, flash, redirect
 import secrets
 
-from db import auth
+from db import auth, todo, watchlists
 
-import api.alpaca as alpaca
+from api import alpaca
 
 app = Flask(__name__) #create instance of class Flask
 

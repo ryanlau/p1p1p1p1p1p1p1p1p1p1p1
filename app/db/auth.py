@@ -21,7 +21,7 @@ def check_creds(username, password):
 
 
     
-# LINES BELOW ONLY GET RUN IF "EXPLICITY RAN" with `python auth.py`
+# LINES BELOW ONLY GET RUN IF "EXPLICITY RAN" with `python app/db/auth.py`
 if __name__ == "__main__":
     create_user_info_table()
     print(check_username_availability("epap"))

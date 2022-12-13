@@ -35,6 +35,7 @@ def delete_todo(todo_id):
     query_db("DELETE FROM todos WHERE todo_id = ?;",(todo_id,))
 
 
+# LINES BELOW ONLY GET RUN IF "EXPLICITY RAN" with `python app/db/todo.py`
 if __name__ == "__main__":
     create_todo_table()
     add_todo("epaperno", "hi", 0)
