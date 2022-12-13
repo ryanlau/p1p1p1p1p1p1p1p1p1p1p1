@@ -17,8 +17,8 @@ app = Flask(__name__) #create instance of class Flask
 
 @app.route('/')
 def index():
-    # if 'username' not in session:
-    #     return render_template('login.html')
+    if 'username' not in session:
+        return render_template('login.html')
     
     # TODO: FETCH FOLLOWING DATA FROM DB
     stocks = [("AMZN", "Amazon.com, Inc."), ("AAPL", "Apple Inc. Common Stock")]
@@ -28,7 +28,7 @@ def index():
 
     return render_template('dashboard.html', stock_data=snapshots)
 
-@app.route("/login", methods=['POST'])
+@app.route("/login", methods=['GET', 'POST'])
 def login():
     username = request.form['username']
     password = request.form['password']
@@ -37,7 +37,6 @@ def login():
 
     if info_correct:
         session['username'] = username
-        session['user_id'] = auth.get_user_id(username)
     else:
         flash("invalid username or password")
 
