@@ -6,12 +6,23 @@
 
 
 from flask import Flask, render_template, request, session, flash, redirect
+from functools import wraps
 import secrets
 import json
 
 from db import auth, todo, watchlists
 
 from api import alpaca
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        username = session.get("username")
+        if username is None:
+            return redirect("/")
+        return f(*args, **kwargs)
+    return decorated_function
 
 app = Flask(__name__) #create instance of class Flask
 
@@ -37,7 +48,7 @@ def index():
 
     return render_template('dashboard.html', stock_data=stock_data, username=session['username'])
 
-@app.route("/login", methods=['GET', 'POST'])
+@app.route("/login", methods=['POST'])
 def login():
     username = request.form['username']
     password = request.form['password']
@@ -70,33 +81,34 @@ def login():
     
     
 @app.route("/stocks")
+@login_required
 def stocks():
     return render_template('stocks.html')
 
 
 @app.route("/weather")
+@login_required
 def weather():
     return render_template('weather.html')
 
 
 @app.route("/news")
+@login_required
 def news():
     return render_template('news.html')
 
 
 @app.route("/todos")
+@login_required
 def todo():
     return render_template('todos.html')
 
 
 @app.route("/api/stocks/add", methods=["POST"])
+@login_required
 def add_stock():
     username = session.get("username")
 
-    if username is None:
-        return redirect("/")
-    
-    
     ticker = request.form["ticker"]
     company_name = alpaca.get_company_name(ticker)
 
@@ -106,21 +118,16 @@ def add_stock():
     return redirect("/")
 
 @app.route("/api/stocks/remove")
+@login_required
 def remove_stock():
     username = session.get("username")
 
-    if username is None:
-        return redirect("/")
-    
-    
     ticker = request.args.get("ticker")
 
     if ticker:
         watchlists.remove_ticker(username, ticker)
 
     return redirect("/")
-
-# @app.route("/api")
 
 
 if __name__ == "__main__":
