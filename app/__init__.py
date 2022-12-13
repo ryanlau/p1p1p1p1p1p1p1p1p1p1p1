@@ -109,7 +109,7 @@ def todo():
 def add_stock():
     username = session.get("username")
 
-    ticker = request.form["ticker"]
+    ticker = request.form["ticker"].upper()
     company_name = alpaca.get_company_name(ticker)
 
     if company_name:
