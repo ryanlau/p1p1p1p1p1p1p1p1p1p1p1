@@ -14,6 +14,17 @@ A personal dashboard to keep your life in order!
 On the dashboard, we will display the weather, sunrise/sunset time, stock data, an inspirational quote for the day, a list of news articles, and an area to write to-do items. Each widget will link to a page that displays more in-depth information when clicked on by the user. 
 
 ## APIs Used
+#### Alpaca Market Data API (stocks)
+
+#### Sunrise and Sunset times API (sunset/sunrise times)
+
+#### Open Weather Map API (weather)
+
+#### Fav Qs API (qotd)
+
+#### New York Times API (news)
+
+#### IP Stack API (approximate location)
 
 ## Launch Codes
 
