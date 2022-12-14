@@ -1,10 +1,10 @@
 import requests
 
-with open("app/keys/key_openweathermap.txt") as f:
+with open("app/keys/key_ipstack.txt") as f:
     API_KEY = f.read().strip()
 
 def get_current(lat,lon):
-    response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=imperial")
+    response = requests.get(f"http://api.ipstack.com/{ip}?access_key={API_KEY}")
     l = [response.json()["weather"][0]["description"],response.json()["main"]["temp"]]
     return l
     
