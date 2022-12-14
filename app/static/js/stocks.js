@@ -14,8 +14,8 @@ function createChart(ticker, bars, change) {
             fill: 'start',
             data: bars,
             tension: 0.3,
-            borderColor: change > 0 ? "#00ff00" : "#ff0000" ,
-            backgroundColor: change > 0 ? "#9eff9e" : "#ff9e9e" ,
+            borderColor: change > 0 ? "#00ff00" : change == 0 ? "#777777" : "#ff0000" ,
+            backgroundColor: change > 0 ? "#9eff9e" : change == 0 ? "#c9c9c9" : "#ff9e9e" ,
         }],
     },
     options: {

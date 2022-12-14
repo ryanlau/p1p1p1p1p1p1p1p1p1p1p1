@@ -38,13 +38,13 @@ def index():
     stocks = watchlists.get_watchlist(username)
 
     stock_data = {}
-    if len(stocks) > 0:
+    if stocks:
         stock_data = alpaca.get_snapshots([stock[0] for stock in stocks])
         bars = alpaca.get_daily_bars([stock[0] for stock in stocks])
 
         for stock in stocks:
             stock_data[stock[0]]["name"] = stock[1]
-            stock_data[stock[0]]["bars"] = bars[stock[0]]
+            stock_data[stock[0]]["bars"] = bars.get(stock[0])
 
     return render_template('dashboard.html', stock_data=stock_data, username=session['username'])
 
