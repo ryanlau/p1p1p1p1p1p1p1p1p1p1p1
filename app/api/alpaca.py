@@ -51,7 +51,7 @@ def get_company_name(ticker):
 
 def get_daily_bars(tickers: list[str]):
     day = get_last_trading_day()
-    response = requests.get(f"https://data.alpaca.markets/v2/stocks/bars?symbols={','.join(tickers)}&timeframe=2Min&start={day[0]}&end={day[1]}", headers=headers).json()
+    response = requests.get(f"https://data.alpaca.markets/v2/stocks/bars?symbols={','.join(tickers)}&timeframe=12Min&start={day[0]}&end={day[1]}", headers=headers).json()
     response = response["bars"]
 
     bars_d = {}
