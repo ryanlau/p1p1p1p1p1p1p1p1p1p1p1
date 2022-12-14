@@ -1,5 +1,5 @@
 import requests
-from datetime import date
+from datetime import date, datetime, timedelta
 
 
 with open("app/keys/key_alpaca_id.txt") as f:
@@ -22,7 +22,20 @@ def get_last_trading_day():
     day = last["date"]
 
     o = f"{day}T{last['open']}:00-05:00"
+
+    # print(o) # 2022-12-14T09:30:00-05:00
+
+    d1 = datetime.strptime(o, "%Y-%m-%dT%H:%M:%S%z") + timedelta(hours=10)
+
+    if d1 > datetime.utcnow().astimezone(): # trading day has not started:
+        last = response[-2]
+        day = last["date"]
+        o = f"{day}T{last['open']}:00-05:00"
+
     c = f"{day}T{last['close']}:00-05:00"
+
+    print(o)
+    print(c)
 
     return (o, c)
 
