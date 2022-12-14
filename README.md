@@ -14,17 +14,23 @@ A personal dashboard to keep your life in order!
 On the dashboard, we will display the weather, sunrise/sunset time, stock data, an inspirational quote for the day, a list of news articles, and an area to write to-do items. Each widget will link to a page that displays more in-depth information when clicked on by the user. 
 
 ## APIs Used
-#### Alpaca Market Data API (stocks)
+#### [Alpaca Market Data API (stocks)](https://alpaca.markets/docs/api-references/market-data-api/stock-pricing-data/historical/)
+[Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411_on_AlpacaMarketData.md)
 
-#### Sunrise and Sunset times API (sunset/sunrise times)
+#### [Sunrise and Sunset times API (sunset/sunrise times)](https://sunrise-sunset.org/api)
+[Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411_on_sunrise.md)
 
-#### Open Weather Map API (weather)
+#### [Open Weather Map API (weather)](https://openweathermap.org/api)
+[Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411_on_OpenWeather.md)
 
-#### Fav Qs API (qotd)
+#### [Fav Qs API (qotd)](https://favqs.com/api)
+[Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411FavQs.md)
 
-#### New York Times API (news)
+#### [New York Times API (news)](https://developer.nytimes.com/apis)
+[Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411_on_NYTMostPopular.md)
 
-#### IP Stack API (approximate location)
+#### [IP Stack API (approximate location)](https://ipstack.com/)
+[Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411_on_ipstack.md)
 
 ## Launch Codes
 
