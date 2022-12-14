@@ -12,7 +12,7 @@ import json
 
 from db import auth, todo, watchlists
 
-from api import alpaca
+from api import alpaca, quotes
 
 
 def login_required(f):
@@ -30,7 +30,9 @@ app = Flask(__name__) #create instance of class Flask
 @app.route('/')
 def index():
     username = session.get("username")
+    ip = request.origin
 
+    print(ip)
     if username is None:
         return render_template('login.html')
 
@@ -46,12 +48,14 @@ def index():
             stock_data[stock[0]]["name"] = stock[1]
             stock_data[stock[0]]["bars"] = bars.get(stock[0])
 
-    return render_template('dashboard.html', stock_data=stock_data, username=session['username'])
+    quote = quotes.get_qotd()
+
+    return render_template('dashboard.html', stock_data=stock_data, username=session['username'], quote=quote)
 
 @app.route("/login", methods=['POST'])
 def login():
-    username = request.form['username']
-    password = request.form['password']
+    username = request.form.get('username')
+    password = request.form.get('password')
 
     info_correct = auth.check_creds(username, password)
 
@@ -62,22 +66,41 @@ def login():
 
     return redirect("/")
 
-# @app.route("/register",methods=['POST'])
-# def register():
-#     if request.method == 'POST':    
-#         key = get_random_string()
-#         username = str(request.form.get('username'))
-#         password = str(request.form.get('password'))
-        
-#         command = f"insert into users values('{username}','{password}');"
-#         db.execute(command)
-        
-#     file.commit()
-    
-#     session["username"]= username
-#     session["password"]=password
 
-#     return render_template('register.html')
+@app.route("/logout")
+@login_required
+def logout():
+    session.pop('username', None)
+    return redirect("/")
+
+
+@app.route("/register",methods=['POST'])
+def register():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    password_confirmation = request.form.get('password-confirmation')
+
+    if username and password and password_confirmation:
+        username = username.strip()
+        password = password.strip()
+        password_confirmation = password_confirmation.strip()
+
+        if username == "":
+            flash("username cannot be empty")
+
+        if password == "":
+            flash("password cannot be empty")
+
+        if password != password_confirmation:
+            flash("passwords do not match")
+        
+        if auth.check_username_availability(username):
+            auth.add_new_user(username, password)
+            session["username"] = username
+        else:
+            flash("username not available")
+
+    return redirect("/")
     
     
 @app.route("/stocks")

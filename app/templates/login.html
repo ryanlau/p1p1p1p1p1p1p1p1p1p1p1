@@ -4,52 +4,52 @@
 
 {% block content %}
 
-<div class="d-flex align-items-center">
-    <div class="card text-center w-50 p-2 mx-auto">
-
+<div class="d-flex align-items-center vh-100 ">
+    <div class="w-50 py-3 px-5 mx-auto h-50">
         <nav>
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-login" aria-selected="true">Login</button>
-              <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register" aria-selected="false">Register</button>
+              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-login" aria-selected="true">login</button>
+              <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register" aria-selected="false">register</button>
             </div>
         </nav>
 
-        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-content border-bottom border-start border-end rounded-bottom" id="nav-tabContent">
 
-            <div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-login" tabindex="0">
-                <form class="form-signin" method="POST" action="/login">
-                    <div class="form-group row p-3">
-                        <label for="username" class="col-sm-3 col-lg-2 col-form-label">Username</label>
-                        <div class="col-sm-9 col-lg-10">
-                            <input type="text" class="form-control form-control-lg" id="username" placeholder="Username" name="username">
-                        </div>
-                    </div>
-                    <div class="form-group row p-3">
-                        <label for="password" class="col-sm-3 col-lg-2 col-form-label">Password</label>
-                        <div class="col-sm-9 col-lg-10">
-                            <input type="password" class="form-control form-control-lg" id="password" placeholder="Password" name="password">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary mb-2">Login</button>
-                </form>
+            <div class="tab-pane fade show active rounded-start " id="nav-login" role="tabpanel" aria-labelledby="nav-login" tabindex="0">
+<form class="py-3 px-3" action="/login" method="POST">
+  <div class="mb-3">
+    <label for="username" class="form-label">username</label>
+    <input name="username" type="text" class="form-control" id="username">
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">password</label>
+    <input name="password" type="password" class="form-control" id="password">
+  </div>
+  <button type="submit" class="btn btn-primary">register</button>
+</form>
+
             </div>
             
-            <div class="tab-pane fade" id="nav-register" role="tabpanel" aria-labelledby="nav-register" tabindex="0">
-                <form class="form-signin" method="POST" action="/register">
-                    <div class="form-group row p-3">
-                        <label for="username" class="col-sm-3 col-lg-2 col-form-label">Username</label>
-                        <div class="col-sm-9 col-lg-10">
-                            <input type="text" class="form-control form-control-lg" id="username" placeholder="Username">
-                        </div>
-                    </div>
-                    <div class="form-group row p-3">
-                        <label for="password" class="col-sm-3 col-lg-2 col-form-label">Password</label>
-                        <div class="col-sm-9 col-lg-10">
-                            <input type="password" class="form-control form-control-lg" id="password" placeholder="Password">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary mb-2">Register</button>
-                </form>
+            <div class="tab-pane fade rounded-end" id="nav-register" role="tabpanel" aria-labelledby="nav-register" tabindex="0">
+
+
+
+<form class="py-3 px-3" action="/register" method="POST">
+  <div class="mb-3">
+    <label for="username" class="form-label">username</label>
+    <input name="username" type="text" class="form-control" id="username" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">password</label>
+    <input name="password" type="password" class="form-control" id="password">
+  </div>
+  <div class="mb-3">
+    <label for="password-confirmation" class="form-label">confirm password</label>
+    <input name="password-confirmation" type="password" class="form-control" id="password-confirmation">
+  </div>
+  <button type="submit" class="btn btn-primary">register</button>
+</form>
+
             </div>
 
         </div>
