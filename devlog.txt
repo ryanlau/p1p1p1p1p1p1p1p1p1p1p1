@@ -61,4 +61,9 @@ craigC -- 2022-12-08 09:27
 elizabethP -- 2022-12-13 09:18
 --------------------------------------------------------------
 - finish database backend --> watchlists, todo list, and user information completed
+
+huiW -- 2022-12-08 09:26
+--------------------------------------------------------------
+- finish login html page and added register page to the same html file
+
 ==============================================================
