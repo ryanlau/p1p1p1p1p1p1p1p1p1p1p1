@@ -8,8 +8,14 @@ def get_current(lat,lon):
     l = [response.json()["weather"][0]["description"],response.json()["main"]["temp"]]
     return l
     
+def convert(zip):
+    response = requests.get(f"http://api.openweathermap.org/geo/1.0/zip?zip={zip},US&appid={API_KEY}")
+    lat = response.json()["lat"]
+    lon = response.json()["lon"]
+    return (lat,lon)
+
 
 if __name__ == "__main__":
-    lat = "40.717831142775566" 
-    lon = "-74.0137791697529"
-    print(get_current(lat, lon))
+    zip = 10282
+    coords = convert(zip)
+    print(get_current(coords[0], coords[1]))
