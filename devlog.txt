@@ -66,13 +66,34 @@ craigC -- 2022-12-09 09:20
 --------------------------------------------------------------
 - added app routes in session
 
+ryanL -- 2022-12-09 09:20
+--------------------------------------------------------------
+- create layout for dashboard
+- +.gitignore
+
 elizabethP -- 2022-12-09 09:26
 --------------------------------------------------------------
 - work on and auth.py to enable login functionality
 
+ryanL -- 2022-12-11 20:45
+- create top bar for dashboard
+- create dashboard and stock card component
+
 elizabethP -- 2022-12-12 09:20
 --------------------------------------------------------------
 - work on and finish todos.py, start work on watchlists
+
+ryanL -- 2022-12-12 09:20
+--------------------------------------------------------------
+- work on more stock stuff
+    - get company name from ticker method
+    - new get prices from ticker method
+    - finish design of stock card
+
+ryanL -- 2022-12-12 22:00
+--------------------------------------------------------------
+- create db module
+    - create function to query db in one line
 
 elizabethP -- 2022-12-13 09:18
 --------------------------------------------------------------
@@ -82,7 +103,29 @@ craigC -- 2022-12-13 09:27
 --------------------------------------------------------------
 - added weather.py
 
+ryanL -- 2022-12-13 15:35
+--------------------------------------------------------------
+- stock chart
+    - create function to get historical bars from alpaca
+    - create stock chart with chart.js
+
 elizabethP -- 2022-12-14 09:18
 --------------------------------------------------------------
 - use favQs api to get qotd
+
+ryanL -- 2022-12-14 09:20
+--------------------------------------------------------------
+- fix premarket bug
+- fix no stock in watchlist bug
+- make clock work
+
+ryanL -- 2022-12-14 19:00
+--------------------------------------------------------------
+- update login and register page
+- fix route for /login
+- write route for /register
+
+ryanL -- 2022-12-14 08:40
+--------------------------------------------------------------
+- replace logout button with pfp and dropdown
 ==============================================================
