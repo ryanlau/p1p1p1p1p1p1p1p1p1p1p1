@@ -5,10 +5,22 @@ with open("app/keys/key_openweathermap.txt") as f:
 
 def get_current(lat,lon):
     response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=imperial")
-    return [response.json["main"]["temp"],response.json["weather"]["main"]]
+    des = response.json()["weather"][0]["description"] 
+    temp = response.json()["main"]["temp"]
+    sunrise = response.json()["sys"]["sunrise"]
+    sunset = response.json()["sys"]["sunset"]
+    timezone = response.json()["timezone"]
+    l = [des,temp,sunrise+timezone,sunset+timezone]
+    return l
     
+def convert(zip):
+    response = requests.get(f"http://api.openweathermap.org/geo/1.0/zip?zip={zip},US&appid={API_KEY}")
+    lat = response.json()["lat"]
+    lon = response.json()["lon"]
+    return (lat,lon)
+
 
 if __name__ == "__main__":
-    lat = "40.717831142775566" 
-    lon = "-74.0137791697529"
-    print(get_current(lat, lon))
+    zip = 10282
+    coords = convert(zip)
+    print(get_current(coords[0], coords[1]))

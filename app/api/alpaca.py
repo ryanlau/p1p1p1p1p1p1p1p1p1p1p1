@@ -14,28 +14,52 @@ headers = {
     "APCA-API-SECRET-KEY": SECRET_KEY,
 }
 
-
-def get_last_trading_day():
-    response = requests.get(f"https://paper-api.alpaca.markets/v2/calendar?end={date.today()}", headers=headers).json()
+'''
+def is_market_day():
+    today = date.today()
+    
+    response = requests.get(f"https://paper-api.alpaca.markets/v2/calendar?end={today}", headers=headers).json()
 
     last = response[-1]
+    last = datetime.strptime(last["date"], "%Y-%m-%d")
+
+    return last.day == today.day
+'''
+
+def get_market_calendar():
+    calendar = requests.get(f"https://paper-api.alpaca.markets/v2/calendar?end={date.today()}", headers=headers).json()
+    return calendar 
+
+
+def is_market_open(calendar):
+    last = calendar[-1]
     day = last["date"]
 
-    o = f"{day}T{last['open']}:00-05:00"
+    o = f"{day}T{last['open']}:00"
+    c = f"{day}T{last['close']}:00"
 
-    # print(o) # 2022-12-14T09:30:00-05:00
+    o = datetime.strptime(o, "%Y-%m-%dT%H:%M:%S") + timedelta(hours=5)
+    c = datetime.strptime(c, "%Y-%m-%dT%H:%M:%S") + timedelta(hours=5)
 
-    d1 = datetime.strptime(o, "%Y-%m-%dT%H:%M:%S%z") + timedelta(hours=10)
+    t = datetime.utcnow()
 
-    if d1 > datetime.utcnow().astimezone(): # trading day has not started:
-        last = response[-2]
+    if o < t and c > t:
+        return True
+
+def get_last_started_trading_day(calendar):
+    last = calendar[-1]
+    day = last["date"]
+
+    o = f"{day}T{last['open']}:00"
+
+    d1 = datetime.strptime(o, "%Y-%m-%dT%H:%M:%S") + timedelta(hours=5)
+
+    if d1 > datetime.utcnow(): # trading day has not started:
+        last = calendar[-2]
         day = last["date"]
-        o = f"{day}T{last['open']}:00-05:00"
 
+    o = f"{day}T{last['open']}:00-05:00"
     c = f"{day}T{last['close']}:00-05:00"
-
-    print(o)
-    print(c)
 
     return (o, c)
 
@@ -63,26 +87,36 @@ def get_company_name(ticker):
 
 
 def get_daily_bars(tickers: list[str]):
-    day = get_last_trading_day()
-    response = requests.get(f"https://data.alpaca.markets/v2/stocks/bars?symbols={','.join(tickers)}&timeframe=12Min&start={day[0]}&end={day[1]}", headers=headers).json()
-    response = response["bars"]
-
     bars_d = {}
 
-    for stock, bars in response.items():
-        cleaned_bars = []
-        for bar in bars:
-            cleaned_bars.append({"x": bar["t"], "y": bar["vw"]})
+    calendar = get_market_calendar()
+    day = get_last_started_trading_day(calendar)
 
-        bars_d[stock] = cleaned_bars
+    if is_market_open(calendar):
+        response = requests.get(f"https://data.alpaca.markets/v2/stocks/bars?symbols={','.join(tickers)}&timeframe=12Min&start={day[0]}", headers=headers)
+    else:
+        response = requests.get(f"https://data.alpaca.markets/v2/stocks/bars?symbols={','.join(tickers)}&timeframe=12Min&start={day[0]}&end={day[1]}", headers=headers)
+
+    print(response.url)
+    response = response.json().get("bars")
+
+    if response:
+        for stock, bars in response.items():
+            cleaned_bars = []
+            for bar in bars:
+                cleaned_bars.append({"x": bar["t"], "y": bar["vw"]})
+
+            bars_d[stock] = cleaned_bars
 
     return bars_d
 
 
 if __name__ == "__main__":
-    print(get_snapshots(["BRK.A", "AMZN"]))
+    calendar = get_market_calendar()
+    print(is_market_open(calendar))
+    print(get_last_started_trading_day(calendar))
+    print(get_snapshots(["AAPL", "AMZN"]))
     print(get_company_name("AAPL"))
     print(get_company_name("FORtnITE"))
     print(get_daily_bars(["AAPL", "AMZN"]))
-    print(get_last_trading_day())
 
