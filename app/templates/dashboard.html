@@ -75,7 +75,19 @@
         </div>
         <div class="col-12 col-lg-4">
             {% call macros.card('todos') %}
-            poopity
+<ul class="list-group">
+  
+    {% for todo_item in todos %}
+                {{ macros.todo_item(todo_item[0], todo_item[1], todo_item[2]) }}
+            {% endfor %}
+
+
+</ul>
+
+
+            <button type="button" class="btn btn-secondary mt-2" data-bs-toggle="modal" data-bs-target="#add-stock">
+                add stock to watchlist
+            </button>
             {% endcall %}
         </div>
     </div>
@@ -100,6 +112,28 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
                 <button type="submit" form="add-stock-form" class="btn btn-primary">add stock</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="add-stock" tabindex="-1" aria-labelledby="add-todo-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">add todo</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-todo-form" action="/api/todos/add" method="POST">
+                    <label for="todo" class="form-label">todo</label>
+                    <input name="todo" type="text" id="todo" placeholder="Walk the dog" class="form-control">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                <button type="submit" form="add-todo-form" class="btn btn-primary">add todo</button>
             </div>
         </div>
     </div>

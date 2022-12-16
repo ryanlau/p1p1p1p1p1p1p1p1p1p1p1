@@ -13,11 +13,11 @@ def add_todo(username, item, completion_status):
 
 
 def get_all_todos(username):
-    vals = query_db("SELECT item FROM todos WHERE username = ?",(username,), all=True)
-    formatted_items = []
-    for i in range(len(vals)): 
-        formatted_items.append(vals[i][0])
-    return formatted_items
+    vals = query_db("SELECT todo_id, item, completion_status FROM todos WHERE username = ?",(username,), all=True)
+    # formatted_items = []
+    # for i in range(len(vals)): 
+    #     formatted_items.append(vals[i][0])
+    return vals
 
 
 def update_completion_status(todo_id, bool_val): 

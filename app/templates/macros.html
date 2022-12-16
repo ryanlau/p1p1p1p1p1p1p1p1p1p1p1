@@ -54,3 +54,11 @@
       </div>
     </div>
 {%- endmacro %}
+
+
+{% macro todo_item(id, value, checked) -%}
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="{{checked}}" id="{id}">
+    <label class="form-check-label" for="{id}">{{value}}</label>
+  </li>
+{%- endmacro %}

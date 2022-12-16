@@ -30,13 +30,9 @@ app = Flask(__name__) #create instance of class Flask
 @app.route('/')
 def index():
     username = session.get("username")
-    ip = request.origin
-
-    print(ip)
     if username is None:
         return render_template('login.html')
 
-    # TODO: FETCH FOLLOWING DATA FROM DB
     stocks = watchlists.get_watchlist(username)
 
     stock_data = {}
@@ -50,7 +46,10 @@ def index():
 
     quote = quotes.get_qotd()
 
-    return render_template('dashboard.html', stock_data=stock_data, username=session['username'], quote=quote)
+    todos = todo.get_all_todos(username)
+    print(todos)
+
+    return render_template('dashboard.html', stock_data=stock_data, username=session['username'], quote=quote, todos=todos)
 
 @app.route("/login", methods=['POST'])
 def login():
@@ -123,9 +122,19 @@ def news():
 
 @app.route("/todos")
 @login_required
-def todo():
+def todo_page():
     return render_template('todos.html')
 
+
+@app.route("/api/todo/add", methods=["POST"])
+@login_required
+def add_todo():
+    username = session.get("username")
+
+    item = request.form["todo"].strip()
+    todo.add_todo(username, item, 0)
+
+    return redirect("/")
 
 @app.route("/api/stocks/add", methods=["POST"])
 @login_required
