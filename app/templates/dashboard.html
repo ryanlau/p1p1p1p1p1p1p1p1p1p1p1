@@ -75,18 +75,27 @@
         </div>
         <div class="col-12 col-lg-4">
             {% call macros.card('todos') %}
-<ul class="list-group">
-  
+<ul class="list-group mt-2">
     {% for todo_item in todos %}
-                {{ macros.todo_item(todo_item[0], todo_item[1], todo_item[2]) }}
-            {% endfor %}
-
-
+        {{ macros.todo_item(todo_item[0], todo_item[1], todo_item[2]) }}
+    {% endfor %}
 </ul>
 
+                {% if todos|length == 0 %}
+                <div class="col-12">
+                    <div class="px-1 ">
+                        <h6 class="mb-0">
+                            Nothing to do!
+                        </h6>
+                    </div>
+                </div>
+                {% endif %}
 
-            <button type="button" class="btn btn-secondary mt-2" data-bs-toggle="modal" data-bs-target="#add-stock">
-                add stock to watchlist
+            <button type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#add-todo">
+                add todo
+            </button>
+            <button type="button" class="btn btn-danger mt-3 ms-2">
+                delete completed todos
             </button>
             {% endcall %}
         </div>
@@ -118,7 +127,7 @@
 </div>
 
 
-<div class="modal fade" id="add-stock" tabindex="-1" aria-labelledby="add-todo-modal" aria-hidden="true">
+<div class="modal fade" id="add-todo" tabindex="-1" aria-labelledby="add-todo-modal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -127,7 +136,6 @@
             </div>
             <div class="modal-body">
                 <form id="add-todo-form" action="/api/todos/add" method="POST">
-                    <label for="todo" class="form-label">todo</label>
                     <input name="todo" type="text" id="todo" placeholder="Walk the dog" class="form-control">
                 </form>
             </div>

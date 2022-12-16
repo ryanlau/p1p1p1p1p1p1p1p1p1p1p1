@@ -127,7 +127,7 @@ def todo_page():
     return render_template('todos.html')
 
 
-@app.route("/api/todo/add", methods=["POST"])
+@app.route("/api/todos/add", methods=["POST"])
 @login_required
 def add_todo():
     username = session.get("username")
@@ -136,6 +136,15 @@ def add_todo():
     todo.add_todo(username, item, 0)
 
     return redirect("/")
+
+
+@app.route("/api/todos/remove")
+@login_required
+def remove_todo():
+    id = request.args.get("id").strip()
+    todo.delete_todo(id)
+    return redirect("/")
+
 
 @app.route("/api/stocks/add", methods=["POST"])
 @login_required
