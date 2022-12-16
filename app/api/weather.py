@@ -19,6 +19,10 @@ def convert(zip):
     lon = response.json()["lon"]
     return (lat,lon)
 
+def get_four(q,cnt):
+    response = requests.get(f"https://pro.openweathermap.org/data/2.5/forecast/hourly?q={q}&cnt={cnt}&appid={API key}")
+    a = response.json()["temp"]["day"]
+    return a
 
 if __name__ == "__main__":
     zip = 10282
