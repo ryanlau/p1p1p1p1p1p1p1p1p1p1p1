@@ -78,6 +78,7 @@ def logout():
 def register():
     username = request.form.get('username')
     password = request.form.get('password')
+    zip = request.form.get('zip-code')
     password_confirmation = request.form.get('password-confirmation')
 
     if username and password and password_confirmation:
@@ -95,7 +96,7 @@ def register():
             flash("passwords do not match")
         
         if auth.check_username_availability(username):
-            auth.add_new_user(username, password)
+            auth.add_new_user(username, password, zip)
             session["username"] = username
         else:
             flash("username not available")
