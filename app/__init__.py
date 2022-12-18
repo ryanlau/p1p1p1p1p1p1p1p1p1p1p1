@@ -49,8 +49,8 @@ def index():
             stock_data[stock[0]]["name"] = stock[1]
             stock_data[stock[0]]["bars"] = bars.get(stock[0])
 
-    # quote = quotes.get_qotd()
-    quote = "bruh"
+    quote = quotes.get_qotd()
+    # quote = "bruh"
 
     todos = todo.get_all_todos(username)
     print(todos)
