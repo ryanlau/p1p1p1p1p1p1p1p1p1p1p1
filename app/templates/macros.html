@@ -14,7 +14,35 @@
 </div>
 {%- endmacro %}
 
+{% macro news() -%}
+<div class="card mb-4" id="news">
+  <div class="d-flex card-header align-items-center">
+    <h5 class="flex-grow-1 mb-0">news</h5>
+    <a href="https://www.nytimes.com/" class="text-reset text-decoration-none" style="margin-top: -4px">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z" />
+      </svg>
+    </a>
+  </div>
+  <div class="card-body overflow-auto vh-100">{{caller()}}</div>
+</div>
+{%- endmacro %}
 
+{% macro article(news_title, news_blurb, news_url, news_img) -%}
+<a href="{{news_url}}" class="text-reset text-decoration-none">
+  <div id="article" class="row">
+    <div id="img" class="col-4">
+      <img src="{{news_img}}" class="rounded img-thumbnail mx-auto d-block">
+    </div>
+    <div id="text" class="col-8">
+      <h4>{{ news_title }}</h4>
+      <p>{{ news_blurb }}</p>
+    </div>
+  </div>
+</a>
+{%- endmacro %}
 
 {% macro stock_card(symbol, name, price, change) -%}
 <div class="col-12">

@@ -33,10 +33,7 @@ def index():
     if username is None:
         return render_template('login.html')
 
-    news_title = news.get_news_title()
-    news_blurb = news.get_news_blurb()
-    news_img = news.get_news_img()
-    news_url = news.get_news_url()
+    news_data = news.get_news_list()
 
     stocks = watchlists.get_watchlist(username)
 
@@ -55,7 +52,7 @@ def index():
     todos = todo.get_all_todos(username)
     print(todos)
 
-    return render_template('dashboard.html', news_title=news_title, news_blurb=news_blurb, news_img=news_img, news_url=news_url, stock_data=stock_data, username=session['username'], quote=quote, todos=todos)
+    return render_template('dashboard.html', news_data=news_data, stock_data=stock_data, username=session['username'], quote=quote, todos=todos)
 
 @app.route("/login", methods=['POST'])
 def login():
