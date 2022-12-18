@@ -49,7 +49,8 @@ def index():
             stock_data[stock[0]]["name"] = stock[1]
             stock_data[stock[0]]["bars"] = bars.get(stock[0])
 
-    quote = quotes.get_qotd()
+    # quote = quotes.get_qotd()
+    quote = "bruh"
 
     todos = todo.get_all_todos(username)
     print(todos)
@@ -120,10 +121,10 @@ def weather():
     return render_template('weather.html')
 
 
-@app.route("/news_page")
+@app.route("/news")
 @login_required
-def news():
-    return render_template('news_page.html')
+def news_page():
+    return render_template('news.html')
 
 
 @app.route("/todos")
