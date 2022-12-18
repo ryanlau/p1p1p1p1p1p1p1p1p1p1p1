@@ -45,7 +45,12 @@
     <div class="row">
         <div class="col-12 col-lg-4">
             {% call macros.card('news') %}
-            poopity
+            <div>
+                <h3>{% news_title %}</h3>
+                <h2>{% news_blurb %}</h2>
+                <img src="">
+                <p>{% news_url %}</p>
+            </div>
             {% endcall %}
         </div>
         <div class="col-12 col-lg-4">

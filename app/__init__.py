@@ -12,7 +12,7 @@ import json
 
 from db import auth, todo, watchlists
 
-from api import alpaca, quotes
+from api import alpaca, quotes, news
 
 
 def login_required(f):
@@ -33,6 +33,11 @@ def index():
     if username is None:
         return render_template('login.html')
 
+    news_title = news.get_news_title()
+    news_blurb = news.get_news_blurb()
+    news_img = news.get_news_img()
+    news_url = news.get_news_url()
+
     stocks = watchlists.get_watchlist(username)
 
     stock_data = {}
@@ -49,7 +54,7 @@ def index():
     todos = todo.get_all_todos(username)
     print(todos)
 
-    return render_template('dashboard.html', stock_data=stock_data, username=session['username'], quote=quote, todos=todos)
+    return render_template('dashboard.html', news_title=news_title, news_blurb=news_blurb, news_img=news_img, news_url=news_url, stock_data=stock_data, username=session['username'], quote=quote, todos=todos)
 
 @app.route("/login", methods=['POST'])
 def login():
@@ -115,10 +120,10 @@ def weather():
     return render_template('weather.html')
 
 
-@app.route("/news")
+@app.route("/news_page")
 @login_required
 def news():
-    return render_template('news.html')
+    return render_template('news_page.html')
 
 
 @app.route("/todos")
