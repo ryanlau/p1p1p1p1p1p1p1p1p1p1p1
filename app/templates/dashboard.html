@@ -44,10 +44,12 @@
 
     <div class="row">
         <div class="col-12 col-lg-4">
-            {% call macros.news() %}
-                {% for i in range(10) %}
-                    {{ macros.article(news_data[i]["title"], news_data[i]["abstract"], news_data[i]["url"], news_data[i]["multimedia"][0]["url"]) }}
-                {% endfor %}
+            {% call macros.card('news') %}
+                <div class="d-flex flex-column" style="row-gap: 16px;">
+                    {% for i in range(10) %}
+                        {{ macros.article(news_data[i]["title"], news_data[i]["abstract"], news_data[i]["url"], news_data[i]["multimedia"][0]["url"]) }}
+                    {% endfor %}
+                </div>
             {% endcall %}
         </div>
         <div class="col-12 col-lg-4">
@@ -153,7 +155,7 @@
 <script src="static/js/stocks.js"></script>
 <script src="static/js/time.js"></script>
 <script>
-    createCharts({{ stock_data| tojson}})
+    createCharts({{ stock_data|tojson }})
 </script>
 
 

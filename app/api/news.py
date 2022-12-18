@@ -1,6 +1,6 @@
 import requests, json
 
-with open("app/keys/key_nytimes_api.txt") as f:
+with open("app/keys/key_nytimes_key.txt") as f:
     API_KEY = f.read().strip()
 
 response = requests.get(f"https://api.nytimes.com/svc/topstories/v2/home.json?api-key={API_KEY}").json()
