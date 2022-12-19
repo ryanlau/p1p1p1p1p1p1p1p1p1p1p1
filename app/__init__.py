@@ -106,6 +106,12 @@ def register():
     return redirect("/")
 
 
+@app.route("/settings")
+@login_required
+def settings():
+    return render_template('settings.html')
+
+
 @app.route("/weather")
 @login_required
 def weather():
