@@ -104,30 +104,12 @@ def register():
             flash("username not available")
 
     return redirect("/")
-    
-    
-@app.route("/stocks")
-@login_required
-def stocks():
-    return render_template('stocks.html')
 
 
 @app.route("/weather")
 @login_required
 def weather():
     return render_template('weather.html')
-
-
-@app.route("/news")
-@login_required
-def news_page():
-    return render_template('news.html')
-
-
-@app.route("/todos")
-@login_required
-def todo_page():
-    return render_template('todos.html')
 
 
 @app.route("/api/todos/add", methods=["POST"])
