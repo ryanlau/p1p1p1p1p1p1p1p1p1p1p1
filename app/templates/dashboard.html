@@ -54,9 +54,9 @@
         <div class="col-12 col-lg-4">
             {% call macros.card('weather') %}
                 <div class = "row">
-                    <div class = "col-3"><div id="icon"><img id="wicon1" src='https://openweathermap.org/img/wn/{{wd.get("current").get("weather")[0].get("icon")}}' alt="Weather icon"></div></div>
-                    <div class = "col-6"><p><b>{{city}}</b></p><p>{{wd.get("current").get("weather")[0].get("description")}}</p><p>Chance of rain: {{wd.get("daily")[0].get("pop")}}%</p><p>High: {{max_temp}} Low: {{min_temp}}</p></div>
-                    <div class = "col-3"><h1>{{curr_temp}}</h1></div>
+                    <div class = "col-3"><div id="icon"><img id="wicon1" src='https://openweathermap.org/img/wn/{{wd.get("current").get("weather")[0].get("icon")}}.png' alt="Weather icon"></div></div>
+                    <div class = "col-6"><p><b>{{city}}</b></p><p>{{wd.get("current").get("weather")[0].get("description")}}</p><p>Chance of rain: {{wd.get("daily")[0].get("pop")}}%</p><p>High: {{wd.get("daily")[0].get("temp").get("max")}} Low: {{wd.get("daily")[0].get("temp").get("min")}}</p></div>
+                    <div class = "col-3"><h1>{{wd.get("current").get("temp")}}</h1></div>
                 </div>
             {% endcall %}
             {% call macros.card('stocks') %}
