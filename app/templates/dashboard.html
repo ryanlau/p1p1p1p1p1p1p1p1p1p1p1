@@ -39,6 +39,12 @@
                 </p>
             </div>
         </div>
+
+        <script>
+            // var iconcode1 = api_call()
+            var iconurl1 = "http://openweathermap.org/img/w/" + iconcode1 + ".png";
+            $('#wicon1').attr('src', iconurl1);
+        </script>
     </header>
 
 
@@ -54,7 +60,11 @@
         </div>
         <div class="col-12 col-lg-4">
             {% call macros.card('weather') %}
-            poopity
+                <div class = "row">
+                    <div class = "col-3"><div id="icon"><img id="wicon1" src="" alt="Weather icon"></div></div>
+                    <div class = "col-6"><p><b>{{city}}</b></p><p>{{description}}</p><p>Chance of rain: {{chance_of rain}}</p><p>High: {{max_temp}} Low: {{min_temp}}</p></div>
+                    <div class = "col-3"><h1>{{curr_temp}}</h1></div>
+                </div>
             {% endcall %}
             {% call macros.card('stocks') %}
             <div class="row py-2 gy-4">
