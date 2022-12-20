@@ -113,7 +113,7 @@ ryanL -- 2022-12-13 15:35
     - create function to get historical bars from alpaca
     - create stock chart with chart.js
     
-craigL -- 2022-12-14 9:15
+craigC -- 2022-12-14 9:15
 --------------------------------------------------------------
 - removed lat and lon initial variables and replaced it with one for zip code
 - added a convert function to convert zip code into lat and lon
