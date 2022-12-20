@@ -106,10 +106,41 @@ def register():
     return redirect("/")
 
 
+@app.route("/settings")
+@login_required
+def settings():
+    return render_template('settings.html')
+
+
 @app.route("/weather")
 @login_required
 def weather():
     return render_template('weather.html')
+
+
+@app.route("/news")
+@login_required
+def news_page():
+    return render_template('news.html')
+
+
+@app.route("/todos")
+@login_required
+def todo_page():
+    return render_template('todos.html')
+
+
+@app.route("/api/todos/update", methods=["POST"])
+@login_required
+def update_todo():
+    username = session.get("username")
+
+    _id = request.form.get("id").strip()
+    status = 1 if request.form.get("status").strip() == "true" else 0
+
+    todo.update_completion_status(_id, status)
+
+    return ""
 
 
 @app.route("/api/todos/add", methods=["POST"])
@@ -128,6 +159,14 @@ def add_todo():
 def remove_todo():
     id = request.args.get("id").strip()
     todo.delete_todo(id)
+    return redirect("/")
+
+
+@app.route("/api/todos/remove_completed")
+@login_required
+def remove_all_completed_todos():
+    username = session.get('username')
+    todo.delete_all_completed_todos(username)
     return redirect("/")
 
 

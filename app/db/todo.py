@@ -35,6 +35,10 @@ def delete_todo(todo_id):
     query_db("DELETE FROM todos WHERE todo_id = ?;",(todo_id,))
 
 
+def delete_all_completed_todos(username): 
+    query_db("DELETE FROM todos WHERE username = ? AND completion_status = 1;",(username,))
+
+
 # LINES BELOW ONLY GET RUN IF "EXPLICITY RAN" with `python app/db/todo.py`
 if __name__ == "__main__":
     create_todo_table()

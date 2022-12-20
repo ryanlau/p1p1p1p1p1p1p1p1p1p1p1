@@ -11,8 +11,7 @@ headers = {
 
 def get_qotd():
     response = requests.get("https://favqs.com/api/quotes?filter=inspirational&type=tag", headers=headers).json()
-    #print(response)
-    rand = random.randint(0,len(response["quotes"]))
+    rand = random.randint(0,len(response["quotes"])-1)
     quote_body = response["quotes"][rand]["body"]
     quote_author = response["quotes"][rand]["author"]
     return (f"{quote_body} ~ {quote_author}")
