@@ -4,8 +4,7 @@ except:
     from db import query_db
 
 def create_todo_table(): 
-    query_db(f"DROP TABLE IF EXISTS todos")
-    query_db(f"CREATE TABLE todos (todo_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, item TEXT, completion_status INTEGER)")
+    query_db(f"CREATE TABLE IF NOT EXISTS todos (todo_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, item TEXT, completion_status INTEGER)")
 
 
 def add_todo(username, item, completion_status): 

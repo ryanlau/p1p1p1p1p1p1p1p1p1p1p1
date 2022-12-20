@@ -5,11 +5,10 @@ except:
 
 def create_user_info_table(): 
     # creates user_info and story_info 
-    query_db("DROP TABLE IF EXISTS user_info")
-    query_db("CREATE TABLE user_info (username TEXT PRIMARY KEY, password TEXT, zipcode TEXT)")
+    query_db("CREATE TABLE IF NOT EXISTS user_info (username TEXT PRIMARY KEY, password TEXT, lat TEXT, lon TEXT, city TEXT)")
 
-def add_new_user(username, password, zip): 
-    query_db("INSERT INTO user_info VALUES (?, ?, ?);", (username, password, zip))
+def add_new_user(username, password, lat, lon, city): 
+    query_db("INSERT INTO user_info VALUES (?, ?, ?, ?, ?);", (username, password, lat, lon, city))
 
 def check_username_availability(username):
     user = query_db("SELECT * FROM user_info WHERE username = ?", (username,))
@@ -19,8 +18,9 @@ def check_creds(username, password):
     user = query_db("SELECT * FROM user_info WHERE username = ? AND password = ?", (username, password))
     return user is not None
 
-def get_zipcoe(username):
-    zip = query_db("SELECT zipcode FROM user_info WHERE username = ?", (username,))
+def get_location(username):
+    location = query_db("SELECT lat, lon, city FROM user_info WHERE username = ?", (username,))
+    return location
     
 # LINES BELOW ONLY GET RUN IF "EXPLICITY RAN" with `python app/db/auth.py`
 if __name__ == "__main__":
@@ -30,7 +30,7 @@ if __name__ == "__main__":
     print(check_creds("epap", "hi"))
     print(check_creds("epap", "hi2"))
     print(check_username_availability("epap"))
-    print(get_zipcoe("epap"))
+    # print(get_zipcoe("epap"))
 
 
 

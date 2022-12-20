@@ -12,7 +12,7 @@ import json
 
 from db import auth, todo, watchlists
 
-from api import alpaca, quotes, news
+from api import alpaca, quotes, news, weather
 
 
 def login_required(f):
@@ -47,12 +47,15 @@ def index():
             stock_data[stock[0]]["bars"] = bars.get(stock[0])
 
     quote = quotes.get_qotd()
-    # quote = "bruh"
 
     todos = todo.get_all_todos(username)
-    print(todos)
 
-    return render_template('dashboard.html', news_data=news_data, stock_data=stock_data, username=session['username'], quote=quote, todos=todos)
+    location = auth.get_location(username)
+    weather_data = weather.get_next_five(location[0], location[1])
+
+    print(weather_data)
+
+    return render_template('dashboard.html', news_data=news_data, stock_data=stock_data, username=session['username'], quote=quote, todos=todos, wd=weather_data, city=location[2])
 
 @app.route("/login", methods=['POST'])
 def login():
@@ -80,13 +83,15 @@ def logout():
 def register():
     username = request.form.get('username')
     password = request.form.get('password')
-    zip = request.form.get('zip-code')
     password_confirmation = request.form.get('password-confirmation')
+    zip = request.form.get('zip-code')
 
-    if username and password and password_confirmation:
+    if username and password and password_confirmation and zip:
         username = username.strip()
         password = password.strip()
         password_confirmation = password_confirmation.strip()
+        zip = zip.strip()
+        coords = weather.get_coords_from_zip(zip)
 
         if username == "":
             flash("username cannot be empty")
@@ -97,8 +102,12 @@ def register():
         if password != password_confirmation:
             flash("passwords do not match")
         
+        if coords is None:
+            flash("zip not valid")
+            return redirect("/")
+
         if auth.check_username_availability(username):
-            auth.add_new_user(username, password, zip)
+            auth.add_new_user(username, password, coords["lat"], coords["lon"], coords["name"])
             session["username"] = username
         else:
             flash("username not available")
@@ -114,7 +123,7 @@ def settings():
 
 @app.route("/weather")
 @login_required
-def weather():
+def weather_page():
     return render_template('weather.html')
 
 
@@ -200,4 +209,10 @@ if __name__ == "__main__":
     app.debug = True
     # app.secret_key = secrets.token_hex()
     app.secret_key = "a"
+
+
+    auth.create_user_info_table()
+    todo.create_todo_table()
+    watchlists.create_watchlist_table()
+
     app.run()

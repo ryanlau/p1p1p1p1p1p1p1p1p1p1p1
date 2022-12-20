@@ -5,8 +5,7 @@ except:
 
 
 def create_watchlist_table(): 
-    query_db("DROP TABLE IF EXISTS watchlists")
-    query_db("CREATE TABLE watchlists (username TEXT, ticker TEXT, company_name TEXT)")
+    query_db("CREATE TABLE IF NOT EXISTS watchlists (username TEXT, ticker TEXT, company_name TEXT)")
 
 
 def add_ticker(username, tick, comp_name):
