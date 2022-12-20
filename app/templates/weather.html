@@ -33,23 +33,6 @@
             padding: 5%
         }
       </style>
-      <script>
-            // var iconcode1 = api_call()
-            var iconurl1 = "http://openweathermap.org/img/w/" + iconcode1 + ".png";
-            $('#wicon1').attr('src', iconurl1);
-            // var iconcode2 = api_call()
-            var iconurl2 = "http://openweathermap.org/img/w/" + iconcode2 + ".png";
-            $('#wicon2').attr('src', iconurl2);
-            // var iconcode3 = api_call()
-            var iconurl3 = "http://openweathermap.org/img/w/" + iconcode3 + ".png";
-            $('#wicon3').attr('src', iconurl4);
-            // var iconcode4 = api_call()
-            var iconurl4 = "http://openweathermap.org/img/w/" + iconcode4 + ".png";
-            $('#wicon4').attr('src', iconurl4);
-            // var iconcode5 = api_call()
-            var iconurl5 = "http://openweathermap.org/img/w/" + iconcode5 + ".png";
-            $('#wicon5').attr('src', iconurl5);
-      </script>
     </head>
     <body>
       <div class="container">
@@ -64,42 +47,42 @@
                     </div>
                     <div class="row main">
                         <div class="col-7 temp"><h1 class = "text-center">{{curr_temp0}}</h1></div>
-                        <div class="col-5 time"><p class = "text-center">{{curr_time}}</p><h2 class = "text-center"><div id="icon"><img id="wicon" src="" alt="Weather icon"></div></h2><p class = "text-center">{{curr_description}}</p></div>
+                        <div class="col-5 time"><p class = "text-center">{{curr_time}}</p><h2 class = "text-center"><div id="icon"><img src="http://openweathermap.org/img/wn/{{iconcode1}}@2x.png" alt="Weather icon"></h2><p class = "text-center">{{curr_description}}</p></div>
                     </div>
                     <div><h3 class = "text-center">5 Day Forecast</h3></div>
                     <div class="row bottom">
                         <div class="col">
                             <div class="row"><p class ="text-center">{{date1}}</p></div>
-                            <div class="row"><div id="icon"><img id="wicon1" src="" alt="Weather icon"></div></div>
-                            <div class="row"><b><p class ="text-center">{{temp1}}</p></b></div>
+                            <div class="row"><div id="icon"><img src="http://openweathermap.org/img/w/{{iconcode1}}.png" alt="Weather icon"></div></div>
+                            <div class="row"><b><p class ="text-center">{{temp1_max}} {{temp1_min}}</p></b></div>
                         </div>
                         <div class="col">
                             <div class="row"><p class ="text-center">{{date2}}</p></div>
-                            <div class="row"><div id="icon"><img id="wicon2" src="" alt="Weather icon"></div></div>
-                            <div class="row"><b><p class ="text-center">{{temp2}}</p></b></div>
+                            <div class="row"><div id="icon"><img src="http://openweathermap.org/img/w/{{iconcode2}}.png" alt="Weather icon"></div></div>
+                            <div class="row"><b><p class ="text-center">{{temp3_max}} {{temp3_min}}</p></b></div>
                         </div>
                         <div class="col">
                             <div class="row"><p class ="text-center">{{date3}}</p></div>
-                            <div class="row"><div id="icon"><img id="wicon3" src="" alt="Weather icon"></div></div>
-                            <div class="row"><b><p class ="text-center">{{temp3}}</p></b></div>
+                            <div class="row"><div id="icon"><img src="http://openweathermap.org/img/w/{{iconcode3}}.png" alt="Weather icon"></div></div>
+                            <div class="row"><b><p class ="text-center">{{temp3_max}} {{temp3_min}}</p></b></div>
                         </div>
                         <div class="col">
                             <div class="row"><p class ="text-center">{{date4}}</p></div>
-                            <div class="row"><div id="icon"><img id="wicon4" src="" alt="Weather icon"></div></div>
-                            <div class="row"><b><p class ="text-center">{{temp4}}</p></b></div>
+                            <div class="row"><div id="icon"><img src="http://openweathermap.org/img/w/{{iconcode4}}.png" alt="Weather icon"></div></div>
+                            <div class="row"><b><p class ="text-center">{{temp4_max}} {{temp4_min}}</p></b></div>
                         </div>
                         <div class="col">
                             <div class="row"><p class ="text-center">{{date5}}</p></div>
-                            <div class="row"><div id="icon"><img id="wicon5" src="" alt="Weather icon"></div></div>
-                            <div class="row"><b><p class ="text-center">{{temp5}}</p></b></div>
+                            <div class="row"><div id="icon"><img src="http://openweathermap.org/img/w/{{iconcode5}}.png" alt="Weather icon"></div></div>
+                            <div class="row"><b><p class ="text-center">{{temp5_max}} {{temp5_min}}</p></b></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="row top"><h4 class = "text-left">Sunrise and Sunset Times</h4></div>
                     <div class="col">
-                        <div class="row"><p class = "text-left">Sunrise</p><b> <p class = "text-left">{{sunrise_time}}</p></b></div>
-                        <div class="row"><p class = "text-left">Sunset</p><b> <p class = "text-left">{{sunset_time}}</p></b></div>
+                        <div class="row"><p class = "text-left">Sunrise</p><b> <p class = "text-left">{{sunrise_time}}</p></b><img src="http://openweathermap.org/img/wn/02d@2x.png" alt="Weather icon"></div>
+                        <div class="row"><p class = "text-left">Sunset</p><b> <p class = "text-left">{{sunset_time}}</p></b><img src="http://openweathermap.org/img/wn/02n@2x.png" alt="Weather icon"></div>
                     </div>
                 </div>
             </div>
