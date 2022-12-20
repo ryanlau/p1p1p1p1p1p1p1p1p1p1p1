@@ -112,6 +112,11 @@ ryanL -- 2022-12-13 15:35
 - stock chart
     - create function to get historical bars from alpaca
     - create stock chart with chart.js
+    
+craigC -- 2022-12-14 9:15
+--------------------------------------------------------------
+- removed lat and lon initial variables and replaced it with one for zip code
+- added a convert function to convert zip code into lat and lon
 
 elizabethP -- 2022-12-14 09:18
 --------------------------------------------------------------
@@ -137,6 +142,10 @@ huiW -- 2022-12-15 09:20
 --------------------------------------------------------------
 - added news.py
 
+craigC -- 2022-12-15 9:21
+--------------------------------------------------------------
+- added new response access points for current weather
+
 huiW -- 2022-12-17 22:03
 --------------------------------------------------------------
 - added news to frontend and debugged
@@ -145,4 +154,9 @@ huiW -- 2022-12-18 1:27
 --------------------------------------------------------------
 - added a list of 10 articles to news
 - changed design of news on dashboard
+
+craigC -- 2022-12-19 9:17
+--------------------------------------------------------------
+- began to implement function to access weather for next 4 days
+
 ==============================================================
