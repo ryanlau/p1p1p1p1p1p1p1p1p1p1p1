@@ -64,7 +64,7 @@ def get_last_started_trading_day(calendar):
     return (o, c)
 
 
-def get_snapshots(symbols: list[str]):
+def get_snapshots(symbols):
     prices = {}
 
     response = requests.get(f"https://data.alpaca.markets/v2/stocks/snapshots?symbols={','.join(symbols)}", headers=headers).json()
@@ -86,7 +86,7 @@ def get_company_name(ticker):
     return response.json()["name"]
 
 
-def get_daily_bars(tickers: list[str]):
+def get_daily_bars(tickers):
     bars_d = {}
 
     calendar = get_market_calendar()
