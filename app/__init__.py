@@ -107,7 +107,7 @@ def register():
             return redirect("/")
 
         if auth.check_username_availability(username):
-            auth.add_new_user(username, password, coords["lat"], coords["lon"], coords["name"])
+            auth.add_new_user(username, password, coords["lat"], coords["lon"], coords["name"], zip)
             session["username"] = username
         else:
             flash("username not available")

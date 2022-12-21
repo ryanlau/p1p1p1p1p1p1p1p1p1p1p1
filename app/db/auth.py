@@ -5,10 +5,10 @@ except:
 
 def create_user_info_table(): 
     # creates user_info and story_info 
-    query_db("CREATE TABLE IF NOT EXISTS user_info (username TEXT PRIMARY KEY, password TEXT, lat TEXT, lon TEXT, city TEXT)")
+    query_db("CREATE TABLE IF NOT EXISTS user_info (username TEXT PRIMARY KEY, password TEXT, lat TEXT, lon TEXT, city TEXT, zip TEXT)")
 
-def add_new_user(username, password, lat, lon, city): 
-    query_db("INSERT INTO user_info VALUES (?, ?, ?, ?, ?);", (username, password, lat, lon, city))
+def add_new_user(username, password, lat, lon, city, zip): 
+    query_db("INSERT INTO user_info VALUES (?, ?, ?, ?, ?, ?);", (username, password, lat, lon, city, zip))
 
 def check_username_availability(username):
     user = query_db("SELECT * FROM user_info WHERE username = ?", (username,))
@@ -19,7 +19,7 @@ def check_creds(username, password):
     return user is not None
 
 def get_location(username):
-    location = query_db("SELECT lat, lon, city FROM user_info WHERE username = ?", (username,))
+    location = query_db("SELECT lat, lon, city, zip FROM user_info WHERE username = ?", (username,))
     return location
     
 # LINES BELOW ONLY GET RUN IF "EXPLICITY RAN" with `python app/db/auth.py`
