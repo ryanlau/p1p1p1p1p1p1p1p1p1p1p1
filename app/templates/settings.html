@@ -54,18 +54,26 @@
                   <div class="tab-pane show active" id="nav-account">
                     <h6>ACCOUNT SETTINGS</h6>
                     <hr>
-                    <form action="/settings/account">
+                    <form action="/settings/update" method="POST">
                       <div class="form-group mb-3">
                         <label for="zip" class="mb-2 mx-1">Zip Code</label>
                         <input type="text" class="form-control" id="zip" placeholder="Enter your zip code" value="{{zip}}">
                       </div>
-                      <button type="submit" class="btn btn-primary">Update Profile</button>
+                      <button type="submit" class="btn btn-primary">Update Zip Code</button>
+                    </form>
+                    <hr>
+                    <form action="/settings/delete">
+                      <div class="form-group">
+                        <label class="d-block text-danger">Delete Account</label>
+                        <p class="text-muted font-size-sm">Once you delete your account, there is no going back. Please be certain.</p>
+                      </div>
+                      <button class="btn btn-danger" type="submit">Delete Account</button>
                     </form>
                   </div>
                   <div class="tab-pane" id="nav-security">
                     <h6>SECURITY SETTINGS</h6>
                     <hr>
-                    <form action="/settings/security">
+                    <form action="/settings/update" method="POST">
                       <div class="form-group mb-3">
                         <label class="d-block mb-2 mx-1">Change Password</label>
                         <input type="text" class="form-control" id="old_pass" placeholder="Enter your old password">

@@ -123,7 +123,8 @@ def register():
 @app.route("/settings")
 @login_required
 def settings():
-    return render_template('settings.html')
+    location = auth.get_location(session["username"])
+    return render_template('settings.html', zip=location[3])
 
 
 @app.route("/settings/update", methods=["POST"])
@@ -149,6 +150,8 @@ def update_settings():
             flash("success!")
         else:
             flash("passwords do not match")
+    
+    return redirect("/")
 
 
 @app.route("/settings/delete")
@@ -156,6 +159,8 @@ def update_settings():
 def delete_account():
     username = session.get("username")
     auth.delete_user(username)
+    session.pop("username")
+    return redirect("/")
 
 
 @app.route("/weather")
