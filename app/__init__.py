@@ -29,9 +29,13 @@ app = Flask(__name__) #create instance of class Flask
 
 @app.route('/')
 def index():
+    referrer = session.get("referrer")
+    session.pop("referrer", None)
+    print(referrer)
+
     username = session.get("username")
     if username is None:
-        return render_template('login.html')
+        return render_template('login.html', referrer=referrer)
 
     news_data = news.get_news_list()
 
@@ -69,6 +73,7 @@ def login():
     else:
         flash("invalid username or password")
 
+    session["referrer"] = "login"
     return redirect("/")
 
 
@@ -104,14 +109,14 @@ def register():
         
         if coords is None:
             flash("zip not valid")
-            return redirect("/")
-
-        if auth.check_username_availability(username):
-            auth.add_new_user(username, password, coords["lat"], coords["lon"], coords["name"], zip)
-            session["username"] = username
         else:
-            flash("username not available")
+            if auth.check_username_availability(username):
+                auth.add_new_user(username, password, coords["lat"], coords["lon"], coords["name"], zip)
+                session["username"] = username
+            else:
+                flash("username not available")
 
+    session["referrer"] = "register"
     return redirect("/")
 
 

@@ -5,17 +5,18 @@
 {% block content %}
 
 <div class="d-flex align-items-center vh-100 ">
-    <div style="width: 600px;" class="py-3 px-5 mx-auto h-50">
+    <div style="width: 600px;" class="px-5 mx-auto h-50">
+        <h1 class="text-center pb-5">welcome to ohayo</h1>
         <nav>
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-login" aria-selected="true">login</button>
-              <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register" aria-selected="false">register</button>
+              <button class="nav-link {{ 'active' if referrer != 'register' }}" id="login-tab" data-bs-toggle="tab" data-bs-target="#nav-login" type="button" role="tab" aria-controls="nav-login" aria-selected="true">login</button>
+              <button class="nav-link {{ 'active' if referrer == 'register' }}" id="register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register" aria-selected="false">register</button>
             </div>
         </nav>
 
         <div class="tab-content border-bottom border-start border-end rounded-bottom" id="nav-tabContent">
 
-            <div class="tab-pane fade show active rounded-start " id="nav-login" role="tabpanel" aria-labelledby="nav-login" tabindex="0">
+            <div class="tab-pane fade rounded-start {{ 'show active' if referrer != 'register' }}" id="nav-login" role="tabpanel" aria-labelledby="nav-login" tabindex="0">
                 <form class="py-3 px-3" action="/login" method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label">username</label>
@@ -29,7 +30,7 @@
                 </form>
             </div>
 
-            <div class="tab-pane fade rounded-end" id="nav-register" role="tabpanel" aria-labelledby="nav-register" tabindex="0">
+            <div class="tab-pane fade rounded-end {{ 'show active' if referrer == 'register' }}" id="nav-register" role="tabpanel" aria-labelledby="nav-register" tabindex="0">
 
                 <form class="py-3 px-3" action="/register" method="POST">
                     <div class="mb-3">
