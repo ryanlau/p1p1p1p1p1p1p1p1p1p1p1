@@ -32,6 +32,9 @@ def update_user_password(username, password):
 def delete_user(username):
     query_db("DELETE FROM user_info WHERE username = ?", (username))
 
+def get_user_password(username):
+    password = query_db("SELECT password FROM user_info WHERE username = ?", (username,))
+    return password
     
 # LINES BELOW ONLY GET RUN IF "EXPLICITY RAN" with `python app/db/auth.py`
 if __name__ == "__main__":

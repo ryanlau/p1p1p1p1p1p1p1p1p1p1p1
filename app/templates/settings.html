@@ -35,11 +35,11 @@
                 <div class="card-body">
                   <nav>
                     <div class="nav nav-pills nav-gap-y-1 flex-column">
-                      <button class="nav-link active text-start" id="account-tab" data-bs-toggle="tab" data-bs-target="#nav-account" type="button" role="tab" aria-controls="nav-account" aria-selected="true">
+                      <button class="nav-link {{ 'active' if tab == 'account' }} text-start" id="account-tab" data-bs-toggle="tab" data-bs-target="#nav-account" type="button" role="tab" aria-controls="nav-account" aria-selected="true">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings mx-2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                         Account
                       </button>
-                      <button class="nav-link text-start" id="security-tab" data-bs-toggle="tab" data-bs-target="#nav-security" type="button" role="tab" aria-controls="nav-security" aria-selected="false">
+                      <button class="nav-link text-start  'active' if tab == 'security' " id="security-tab" data-bs-toggle="tab" data-bs-target="#nav-security" type="button" role="tab" aria-controls="nav-security" aria-selected="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield mx-2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                         Security
                       </button>
@@ -51,16 +51,28 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body tab-content">
-                  <div class="tab-pane show active" id="nav-account">
+                  <div class="tab-pane {{ 'show active' if tab == 'account' }}" id="nav-account">
                     <h6>ACCOUNT SETTINGS</h6>
                     <hr>
                     <form action="/settings/update" method="POST">
                       <div class="form-group mb-3">
                         <label for="zip" class="mb-2 mx-1">Zip Code</label>
-                        <input type="text" class="form-control" id="zip" placeholder="Enter your zip code" value="{{zip}}">
+                        <input type="text" class="form-control" name="zip" placeholder="Enter your zip code" value="{{zip}}">
                       </div>
                       <button type="submit" class="btn btn-primary">Update Zip Code</button>
                     </form>
+
+                        {% with messages = get_flashed_messages(category_filter=["zip"]) %}
+                        {% if messages %}
+                        <ul class="mt-2">
+                            {% for message in messages %}
+                            <li class="{{ 'text-danger' if message != 'success!' else 'text-success'}}">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% endwith %}
+
+
                     <hr>
                     <form action="/settings/delete">
                       <div class="form-group">
@@ -69,19 +81,33 @@
                       </div>
                       <button class="btn btn-danger" type="submit">Delete Account</button>
                     </form>
+                  
+
+
                   </div>
-                  <div class="tab-pane" id="nav-security">
+                  <div class="tab-pane {{ 'show active' if tab == 'security' }}" id="nav-security">
                     <h6>SECURITY SETTINGS</h6>
                     <hr>
                     <form action="/settings/update" method="POST">
                       <div class="form-group mb-3">
                         <label class="d-block mb-2 mx-1">Change Password</label>
-                        <input type="text" class="form-control" id="old_pass" placeholder="Enter your old password">
-                        <input type="password" class="form-control mt-2" id="new_pass" placeholder="New password">
-                        <input type="password" class="form-control mt-2" id="confirm_pass" placeholder="Confirm new password">
+                        <input type="password" class="form-control" name="old-password" placeholder="Enter your old password">
+                        <input type="password" class="form-control mt-2" name="password" placeholder="New password">
+                        <input type="password" class="form-control mt-2" name="password-confirmation" placeholder="Confirm new password">
                       </div>
                       <button type="submit" class="btn btn-primary" id="change_password">Update Password</button>
                     </form>
+
+                        {% with messages = get_flashed_messages(category_filter=["password"]) %}
+                        {% if messages %}
+                        <ul class="mt-2">
+                            {% for message in messages %}
+                            <li class="{{ 'text-danger' if message != 'success!' else 'text-success'}}">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% endwith %}
+
                   </div>
                 </div>
             </div>

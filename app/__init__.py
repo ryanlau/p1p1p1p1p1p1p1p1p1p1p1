@@ -31,7 +31,6 @@ app = Flask(__name__) #create instance of class Flask
 def index():
     referrer = session.get("referrer")
     session.pop("referrer", None)
-    print(referrer)
 
     username = session.get("username")
     if username is None:
@@ -71,7 +70,7 @@ def login():
     if info_correct:
         session['username'] = username
     else:
-        flash("invalid username or password")
+        flash("invalid username or password", "login")
 
     session["referrer"] = "login"
     return redirect("/")
@@ -99,22 +98,22 @@ def register():
         coords = weather.get_coords_from_zip(zip)
 
         if username == "":
-            flash("username cannot be empty")
+            flash("username cannot be empty", "register")
 
         if password == "":
-            flash("password cannot be empty")
+            flash("password cannot be empty", "register")
 
         if password != password_confirmation:
-            flash("passwords do not match")
+            flash("passwords do not match", "register")
         
         if coords is None:
-            flash("zip not valid")
+            flash("zip not valid", "register")
         else:
             if auth.check_username_availability(username):
                 auth.add_new_user(username, password, coords["lat"], coords["lon"], coords["name"], zip)
                 session["username"] = username
             else:
-                flash("username not available")
+                flash("username not available", "register")
 
     session["referrer"] = "register"
     return redirect("/")
@@ -123,8 +122,11 @@ def register():
 @app.route("/settings")
 @login_required
 def settings():
+    tab = session.get("settings", "account")
+    session.pop("settings", None)
+
     location = auth.get_location(session["username"])
-    return render_template('settings.html', zip=location[3])
+    return render_template('settings.html', zip=location[3], tab=tab)
 
 
 @app.route("/settings/update", methods=["POST"])
@@ -132,26 +134,35 @@ def settings():
 def update_settings():
     username = session.get("username")
     zip = request.form.get("zip")
+
+    old_password = request.form.get("password")
     password = request.form.get("password")
     password_confirmation = request.form.get("password-confirmation")
 
     if zip:
-        location = weather.get_coords_from_zip()
+        session["settings"] = "account"
+        location = weather.get_coords_from_zip(zip)
+        print(location)
 
         if location:
-            auth.update_user_location(username, location[0], location[1], location[2], location[3])
-            flash("success!")
+            auth.update_user_location(username, location["lat"], location["lon"], location["name"], location["zip"])
+            flash("success!", "zip")
         else:
-            flash("invalid zip code")
+            flash("invalid zip code", "zip")
 
-    if password and password_confirmation:
+    # omg..
+    if old_password and password and password_confirmation:
+        session["settings"] = "security"
         if password == password_confirmation:
-            auth.update_user_password(username, password)
-            flash("success!")
+            if password == auth.get_user_password(username)[0]:
+                auth.update_user_password(username, password)
+                flash("success!", "password")
+            else:
+                flash("old password is incorrect", "password")
         else:
-            flash("passwords do not match")
+            flash("passwords do not match", "password")
     
-    return redirect("/")
+    return redirect("/settings")
 
 
 @app.route("/settings/delete")
