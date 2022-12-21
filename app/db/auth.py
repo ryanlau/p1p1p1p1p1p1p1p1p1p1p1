@@ -21,6 +21,17 @@ def check_creds(username, password):
 def get_location(username):
     location = query_db("SELECT lat, lon, city, zip FROM user_info WHERE username = ?", (username,))
     return location
+
+def update_user_location(username, lat, lon, city, zip):
+    query_db("UPDATE user_info SET lat = ?, lon = ?, city = ?, zip = ? WHERE username = ?", (lat, lon, city, zip, username))
+    
+
+def update_user_password(username, password):
+    query_db("UPDATE user_info SET password = ? WHERE username = ?", (username, password))
+
+def delete_user(username):
+    query_db("DELETE FROM user_info WHERE username = ?", (username))
+
     
 # LINES BELOW ONLY GET RUN IF "EXPLICITY RAN" with `python app/db/auth.py`
 if __name__ == "__main__":

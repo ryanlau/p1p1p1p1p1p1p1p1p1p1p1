@@ -121,6 +121,38 @@ def settings():
     return render_template('settings.html')
 
 
+@app.route("/settings/update", methods=["POST"])
+@login_required
+def update_settings():
+    username = session.get("username")
+    zip = request.form.get("zip")
+    password = request.form.get("password")
+    password_confirmation = request.form.get("password-confirmation")
+
+    if zip:
+        location = weather.get_coords_from_zip()
+
+        if location:
+            auth.update_user_location(username, location[0], location[1], location[2], location[3])
+            flash("success!")
+        else:
+            flash("invalid zip code")
+
+    if password and password_confirmation:
+        if password == password_confirmation:
+            auth.update_user_password(username, password)
+            flash("success!")
+        else:
+            flash("passwords do not match")
+
+
+@app.route("/settings/delete")
+@login_required
+def delete_account():
+    username = session.get("username")
+    auth.delete_user(username)
+
+
 @app.route("/weather")
 @login_required
 def weather_page():
