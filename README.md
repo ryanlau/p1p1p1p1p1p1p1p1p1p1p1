@@ -17,11 +17,11 @@ On the dashboard, we will display the weather, sunrise/sunset time, stock data, 
 #### [Alpaca Market Data API (stocks)](https://alpaca.markets/docs/api-references/market-data-api/stock-pricing-data/historical/)
 [Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411_on_AlpacaMarketData.md)
 
-#### [Sunrise and Sunset times API (sunset/sunrise times)](https://sunrise-sunset.org/api)
-[Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411_on_sunrise.md)
 
 #### [Open Weather Map API (weather)](https://openweathermap.org/api)
 [Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411_on_OpenWeather.md)
+
+[**IMPORTANT REGARDING OPENWEATHER**](https://github.com/ryanlau/p1p1p1p1p1p1p1p1p1p1p1/blob/main/app/keys/readme)
 
 #### [Fav Qs API (qotd)](https://favqs.com/api)
 [Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411FavQs.md)
@@ -29,8 +29,6 @@ On the dashboard, we will display the weather, sunrise/sunset time, stock data, 
 #### [New York Times API (news)](https://developer.nytimes.com/apis)
 [Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411_on_NYTMostPopular.md)
 
-#### [IP Stack API (approximate location)](https://ipstack.com/)
-[Card](https://github.com/stuy-softdev/notes-and-code/blob/main/api_kb/411_on_ipstack.md)
 
 ## Launch Codes
 
