@@ -72,7 +72,10 @@ def get_snapshots(symbols):
     for stock, data in response.items():
         prices[stock] = {}
         prices[stock]["price"] = round(data["latestTrade"]["p"], 2)
-        prices[stock]["change"] = round(((data["latestTrade"]["p"] - data["prevDailyBar"]["c"]) / data["prevDailyBar"]["c"]) * 100, 2)
+        try:
+            prices[stock]["change"] = round(((data["latestTrade"]["p"] - data["prevDailyBar"]["c"]) / data["prevDailyBar"]["c"]) * 100, 2)
+        except:
+            prices[stock]["change"] = "?"
 
     return prices
 

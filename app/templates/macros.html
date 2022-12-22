@@ -45,16 +45,18 @@
         <canvas id="{{symbol}}-chart"></canvas>
       </div>
       <div class="flex-shrink-0" style="width: 80px;">
-        <h6 class="mb-0 mt-1 text-end fw-bold text-truncate">${{price}}</h6>
+        <h6 class="mb-0 mt-1 text-end fw-bold text-truncate">${{'{0:.2f}'.format(price) if price < 10000 else price | int }}</h6>
         <div class="d-flex justify-content-end pt-2">
-          {% if change > 0 %}
+          {% if change == "?" %}
+          <span class="badge text-bg-secondary">{{change}}.??%</span>
+
+          {% elif change > 0 %}
           <span class="badge text-bg-success">{{change}}%</span>
-          {% endif %}
 
-          {% if change < 0 %} <span class="badge text-bg-danger">{{change}}%</span>
-            {% endif %}
+          {% elif change < 0 %}
+           <span class="badge text-bg-danger">{{change}}%</span>
 
-            {% if change == 0 %}
+            {% elif change == 0 %}
             <span class="badge text-bg-secondary">{{change}}%</span>
             {% endif %}
         </div>
@@ -80,7 +82,7 @@
   {% if checked %}
     <input class="todo-item form-check-input" type="checkbox" checked id="{{id}}">
     {% else %}
-    <input class="todo-item form-check-input" type="checkbox" id="{{id}}">
+    <input style="width: 14px; min-width: 14px; height: 14px; min-width: 14px;" class="todo-item form-check-input" type="checkbox" id="{{id}}">
   {% endif %}
   <label class="form-check-label flex-grow-1" for="{{id}}">{{value}}</label>
   <a href="/api/todos/remove?id={{id}}" class="text-reset text-decoration-none">
@@ -109,7 +111,7 @@
       <img style="width: 50px; height: 50px;" src='https://openweathermap.org/img/wn/{{icon}}@2x.png'>
     </div>
 
-                        <div class="d-flex justify-content-center" style="margin-left: 4px;">
+                        <div class="mt-2 d-flex justify-content-center" style="margin-left: 4px;">
                         <h6 class="m-0">{{ lo | round | int }}</h6>
                         <svg style="margin-top: 2px; margin-right: 4px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up"
                             viewBox="0 0 16 16">

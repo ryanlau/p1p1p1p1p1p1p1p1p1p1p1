@@ -89,7 +89,7 @@
                 
                     <div class="d-flex">
                         <h6 class="m-0">{{wd.get("daily")[0].get("temp").get("max") | round | int }}</h6>
-                        <svg style="margin-left: 4px; margin-top: 2px; margin-right: 8px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up"
+                        <svg style="margin-left: 4px; margin-top: 2px; margin-right: 12px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up"
                             viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
@@ -165,14 +165,17 @@
                 </div>
                 {% endif %}
 
-            <button type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#add-todo">
+            <div class="d-flex flex-wrap mt-3" style="gap: 12px;">
+
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#add-todo">
                 add todo
             </button>
             <a href="/api/todos/remove_completed">
-                <button type="button" class="btn btn-danger mt-3 ms-2">
+                <button type="button" class="btn btn-danger">
                     delete completed todos
                 </button>
             </a>
+            </div>
             {% endcall %}
         </div>
     </div>
