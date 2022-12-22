@@ -68,9 +68,12 @@
                 </div>
 
                 <div class="">
-                    <h1 style="margin-top: 12px;">
-                        {{wd.get("current").get("temp") | round | int }}&#8457;
-                    </h1>
+                    <h3 class="mb-0" style="margin-top: 8px;">
+                        {{wd.get("current").get("temp") | round | int }}&#176;F
+                    </h3>
+                    <h6 class="text-secondary">
+                        Feels like {{wd.get("current").get("feels_like") | round | int }}&#176;F
+                    </h6>
                 </div>
 
                 <div class="flex-grow-1"></div>
@@ -101,7 +104,7 @@
                         </svg>
                 
                 
-                        <h6 class="m-0">{{wd.get("daily")[0].get("pop")}}%</h6>
+                        <h6 class="m-0">{{wd.get("daily")[0].get("pop") * 100}}%</h6>
                         <svg style="margin-left: 4px; margin-top: 2px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-umbrella"
                             viewBox="0 0 16 16">
                             <path
@@ -115,20 +118,9 @@
             </div>
 
             <div class="d-flex py-3" style="column-gap: 16px; overflow-x: auto;">
-                {{macros.weather_card("Thurs", "40", "30", "0", "01n")}}
-                {{macros.weather_card("Friday", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
-                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {% for day in wd.get("daily")[:-1] %}
+                    {{macros.weather_card(day.get("dow"), day.get("temp").get("min"), day.get("temp").get("max"), 100 * day.get("pop"), day.get("weather")[0].get("icon"))}}
+                {% endfor %}
             </div>
 
 

@@ -1,4 +1,5 @@
 import requests, json
+from datetime import datetime
 
 with open("app/keys/key_openweathermap.txt") as f:
     API_KEY = f.read().strip()
@@ -18,6 +19,12 @@ def get_coords_from_zip(zip):
 
 def get_next_five(lat, lon):
     response = requests.get(f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&appid={API_KEY}&units=imperial&exclude=minutely,hourly,alerts").json()
+
+    for i in range(len(response.get("daily"))):
+        response["daily"][i]["dow"] = datetime.fromtimestamp(response["daily"][i]["dt"]).strftime("%a")
+        # print(response["daily"][i]["dow"])
+        
+
     return response
 
 

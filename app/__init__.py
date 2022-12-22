@@ -56,8 +56,6 @@ def index():
     location = auth.get_location(username)
     weather_data = weather.get_next_five(location[0], location[1])
 
-    print(weather_data)
-
     return render_template('dashboard.html', news_data=news_data, stock_data=stock_data, username=session['username'], quote=quote, todos=todos, wd=weather_data, city=location[2])
 
 @app.route("/login", methods=['POST'])
@@ -144,7 +142,6 @@ def update_settings():
     if zip:
         session["settings"] = "account"
         location = weather.get_coords_from_zip(zip)
-        print(location)
 
         if location:
             auth.update_user_location(username, location["lat"], location["lon"], location["name"], location["zip"])
@@ -174,24 +171,6 @@ def delete_account():
     auth.delete_user(username)
     session.pop("username")
     return redirect("/")
-
-
-@app.route("/weather")
-@login_required
-def weather_page():
-    return render_template('weather.html')
-
-
-@app.route("/news")
-@login_required
-def news_page():
-    return render_template('news.html')
-
-
-@app.route("/todos")
-@login_required
-def todo_page():
-    return render_template('todos.html')
 
 
 @app.route("/api/todos/update", methods=["POST"])
@@ -262,9 +241,7 @@ def remove_stock():
 
 if __name__ == "__main__":
     app.debug = True
-    # app.secret_key = secrets.token_hex()
-    app.secret_key = "a"
-
+    app.secret_key = secrets.token_hex()
 
     auth.create_user_info_table()
     todo.create_todo_table()
