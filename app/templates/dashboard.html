@@ -53,11 +53,63 @@
         </div>
         <div class="col-12 col-lg-4">
             {% call macros.card('weather', 'https://openweathermap.org/') %}
-                <div class = "row">
+                <!-- <div class = "row">
                     <div class = "col-3"><div id="icon"><img id="wicon1" src='https://openweathermap.org/img/wn/{{wd.get("current").get("weather")[0].get("icon")}}.png' alt="Weather icon"></div></div>
                     <div class = "col-6"><p><b>{{city}}</b></p><p>{{wd.get("current").get("weather")[0].get("description")}}</p><p>Chance of rain: {{wd.get("daily")[0].get("pop")}}%</p><p>High: {{wd.get("daily")[0].get("temp").get("max")}} Low: {{wd.get("daily")[0].get("temp").get("min")}}</p></div>
                     <div class = "col-3"><h1>{{wd.get("current").get("temp")}}</h1></div>
+                </div> -->
+
+            <div class="d-flex" style="column-gap: 8px">
+
+                <div>
+                    <img style="height: 50px; width: 50px;" class="align-self-center"
+                        src='https://openweathermap.org/img/wn/{{wd.get("current").get("weather")[0].get("icon")}}@2x.png'
+                        alt="Weather icon">
                 </div>
+
+                <div class="d-flex">
+                    <h2 class="mt-1">
+                        {{wd.get("current").get("temp") | round | int }}&#8457;
+                    </h2>
+                </div>
+
+                <div class="flex-grow-1">
+                </div>
+
+
+                <div class="">
+                    <h5 class="text-end m-0">
+                        {{city}}
+                    </h5>
+
+                    <h6 class="text-end mt-1">
+                        {{wd.get("current").get("weather")[0].get("main")}}
+                    </h6>
+                </div>
+
+
+
+            </div>
+
+            <div class="d-flex " style="column-gap: 16px; overflow-x: auto;">
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Friday", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+                {{macros.weather_card("Thurs", "40", "30", "0")}}
+            </div>
+
+
+
             {% endcall %}
             {% call macros.card('stocks', 'https://www.tradingview.com/') %}
             <div class="row py-2 gy-4">
@@ -161,7 +213,7 @@
 <script src="static/js/time.js"></script>
 <script src="static/js/todo.js"></script>
 <script>
-    createCharts({{ stock_data|tojson }})
+    createCharts({{ stock_data| tojson }})
 </script>
 
 

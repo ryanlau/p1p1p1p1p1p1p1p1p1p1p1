@@ -114,6 +114,8 @@ def register():
                 session["username"] = username
             else:
                 flash("username not available", "register")
+    else:
+        flash("please fill all fields", "register")
 
     session["referrer"] = "register"
     return redirect("/")
