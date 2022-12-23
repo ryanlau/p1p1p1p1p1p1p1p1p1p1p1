@@ -176,4 +176,11 @@ craigC -- 2022-12-19 9:17
 --------------------------------------------------------------
 - began to implement function to access weather for next 4 days
 
+elizabethP -- 2022-12-20 9:23
+--------------------------------------------------------------
+- continue working on weather frontend
+
+elizabethP -- 2022-12-21 22:04
+--------------------------------------------------------------
+- update design doc to allign with end result
 ==============================================================
