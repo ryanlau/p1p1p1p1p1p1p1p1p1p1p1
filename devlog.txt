@@ -193,6 +193,7 @@ elizabethP -- 2022-12-20 9:23
 - continue working on weather frontend
 
 huiW -- 2022-12-21 21:30
+--------------------------------------------------------------
 - added settings page and finished frontend and backend
 
 ryanL -- 2022-12-21 21:00
